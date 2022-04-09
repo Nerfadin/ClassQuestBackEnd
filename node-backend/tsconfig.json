@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@interfaces/*": ["../packages/interfaces/*"],
+      "@utils/*": ["../packages/utils/*"],
+    },
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "outDir": "lib",
+    "lib": ["es2019"],
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "strict": false,
+    "strictNullChecks": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es2017"
+  },
+  "compileOnSave": true,
+  "files": ["src/index.ts"],
+  "include": ["src/", "../packages/*"]
+}

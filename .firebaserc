@@ -1,0 +1,17 @@
+{
+  "targets": {
+    "classquest-2bb7d": {
+      "hosting": {
+        "app": [
+          "classquest-app"
+        ],
+        "website": [
+          "classquest-2bb7d"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "ClassQuestBackendProd": "classquest-2bb7d"
+  }
+}

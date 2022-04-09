@@ -1,0 +1,11 @@
+{
+  "someservice": {
+    "id": "b9a69fcf5d24827f0ac0534840091e88fa9b3d4e",
+    "key": "classquest-2bb7d"
+  },
+  "algolia": {
+    "appid": "TQ3DMBGOG9",
+    "apikey": "bb7f39cdc1cf07f6a80b0ddec82c92a4",
+    "app_id": "TQ3DMBGOG9"
+  }
+}
