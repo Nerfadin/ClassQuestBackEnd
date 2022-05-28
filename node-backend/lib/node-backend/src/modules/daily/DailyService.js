@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -100,14 +104,14 @@ let DailyService = class DailyService {
     }
 };
 DailyService = __decorate([
-    tsyringe_1.Singleton(),
-    __param(0, tsyringe_1.Inject(() => DailyServiceFirebaseAdaptor_1.DailyServiceFirebaseAdaptor)),
+    (0, tsyringe_1.Singleton)(),
+    __param(0, (0, tsyringe_1.Inject)(() => DailyServiceFirebaseAdaptor_1.DailyServiceFirebaseAdaptor)),
     __metadata("design:paramtypes", [DailyServiceFirebaseAdaptor_1.DailyServiceFirebaseAdaptor])
 ], DailyService);
 exports.DailyService = DailyService;
 function getDaysDifference(lastRewarded, today) {
-    const lastRewardedDayjs = dayjs_1.default(lastRewarded.toDate());
-    const daysDifference = dayjs_1.duration(dayjs_1.default(today).diff(lastRewardedDayjs)).days();
+    const lastRewardedDayjs = (0, dayjs_1.default)(lastRewarded.toDate());
+    const daysDifference = (0, dayjs_1.duration)((0, dayjs_1.default)(today).diff(lastRewardedDayjs)).days();
     return daysDifference;
 }
 function nextDailyReward(lastRewardInfo, today, daysDifference) {

@@ -14,7 +14,7 @@ const firestoreUtils_1 = require("../../utils/firestoreUtils");
 exports.INSTITUTIONS = "institutions";
 let InstitutionMigrationAdapter = class InstitutionMigrationAdapter {
     async getAllInstitutions() {
-        const institutions = await firestoreUtils_1.manyDocumentsOrErrorP(app_1.adminDb.collection(exports.INSTITUTIONS).get());
+        const institutions = await (0, firestoreUtils_1.manyDocumentsOrErrorP)(app_1.adminDb.collection(exports.INSTITUTIONS).get());
         const institutionsIds = institutions.map((i) => {
             return i.id;
         });
@@ -39,7 +39,7 @@ let InstitutionMigrationAdapter = class InstitutionMigrationAdapter {
     }
 };
 InstitutionMigrationAdapter = __decorate([
-    tsyringe_1.Singleton()
+    (0, tsyringe_1.Singleton)()
 ], InstitutionMigrationAdapter);
 exports.InstitutionMigrationAdapter = InstitutionMigrationAdapter;
 //# sourceMappingURL=institutionMigrationAdapter.js.map

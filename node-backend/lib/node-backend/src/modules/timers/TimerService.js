@@ -25,7 +25,7 @@ let TimerService = class TimerService {
         this.timerDao = timerDao;
     }
     saveTimer(userId, dto) {
-        const now = dayjs_1.default();
+        const now = (0, dayjs_1.default)();
         const expiresAt = now.add(dayjs_1.default.duration(dto.expiresIn).asMilliseconds(), "millisecond");
         return this.timerDao.saveEvent(userId, {
             [dto.name]: expiresAt.toDate(),
@@ -43,8 +43,8 @@ let TimerService = class TimerService {
             return {
                 isExpired: true,
             };
-        const expiresAt = dayjs_1.default(value.toDate());
-        const now = dayjs_1.default();
+        const expiresAt = (0, dayjs_1.default)(value.toDate());
+        const now = (0, dayjs_1.default)();
         const expiresIn = expiresAt.diff(now);
         if (expiresIn > 0) {
             return {
@@ -58,8 +58,8 @@ let TimerService = class TimerService {
     }
 };
 TimerService = __decorate([
-    tsyringe_1.Singleton(),
-    __param(0, tsyringe_1.Inject(() => TimerFirebaseAdaptor_1.TimerFirebaseAdaptor)),
+    (0, tsyringe_1.Singleton)(),
+    __param(0, (0, tsyringe_1.Inject)(() => TimerFirebaseAdaptor_1.TimerFirebaseAdaptor)),
     __metadata("design:paramtypes", [TimerFirebaseAdaptor_1.TimerFirebaseAdaptor])
 ], TimerService);
 exports.TimerService = TimerService;

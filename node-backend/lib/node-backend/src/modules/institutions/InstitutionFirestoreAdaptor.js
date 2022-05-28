@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.InstitutionFirestoreAdaptor = exports.GROUPS = exports.INSTITUTIONINVITATIONS = exports.INSTITUTION_HAS_QUESTS = exports.INSTITUTION_SECURITY = exports.INSTITUTIONS = exports.INSTITUTIONS_HAS_TEACHERS = void 0;
+exports.InstitutionFirestoreAdaptor = exports.INSTITUTIONINVITATIONS = exports.INSTITUTION_HAS_QUESTS = exports.INSTITUTION_SECURITY = exports.INSTITUTIONS = exports.INSTITUTIONS_HAS_TEACHERS = exports.INSTITUTIONHASPLAYER = void 0;
 const app_1 = require("../../app");
 const firestoreUtils_1 = require("../../utils/firestoreUtils");
 const firebase_admin_1 = require("firebase-admin");
@@ -19,24 +19,24 @@ const CreateInstitutionDto_1 = require("./CreateInstitutionDto");
 const QuestFirebaseAdaptor_1 = require("../quests/QuestFirebaseAdaptor");
 const errorUtils_1 = require("../../utils/errorUtils");
 const class_validator_1 = require("class-validator");
+exports.INSTITUTIONHASPLAYER = "institution_Has_Player";
 exports.INSTITUTIONS_HAS_TEACHERS = "institutions_has_teachers";
 exports.INSTITUTIONS = "institutions";
 exports.INSTITUTION_SECURITY = "institution_security";
 exports.INSTITUTION_HAS_QUESTS = "institutions_has_quests";
 exports.INSTITUTIONINVITATIONS = "institutionInvitations";
-exports.GROUPS = "groups";
 let InstitutionFirestoreAdaptor = class InstitutionFirestoreAdaptor {
     constructor() { }
     //pega o plano da instituição
     getTeacherInstitutionPlan(teacherId, institutionId) {
-        return firestoreUtils_1.oneDocumentP(app_1.adminDb
+        return (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb
             .collection(exports.INSTITUTIONS_HAS_TEACHERS)
             .doc(`${teacherId}_${institutionId}`)
             .get());
     }
     async getTeacherInstitutionsInfo(teacherId) {
         console.log("teacher Id: " + teacherId);
-        const teacher = await firestoreUtils_1.oneDocumentP(app_1.adminDb.collection(GroupFirebaseAdaptor_1.TEACHERS).doc(teacherId).get());
+        const teacher = await (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb.collection(GroupFirebaseAdaptor_1.TEACHERS).doc(teacherId).get());
         const teacherInstitutionIds = teacher.institutionIds;
         console.log("teacherInstitutionsIds " + teacherInstitutionIds);
         const institutionsPromisse = teacherInstitutionIds.map(async (id) => {
@@ -52,7 +52,7 @@ let InstitutionFirestoreAdaptor = class InstitutionFirestoreAdaptor {
         return await app_1.adminDb.collection(exports.INSTITUTIONS).add(createDto);
     }
     async getInstitutionInfo(institutionId) {
-        const institution = await firestoreUtils_1.oneDocumentP(app_1.adminDb.collection(exports.INSTITUTIONS).doc(institutionId).get());
+        const institution = await (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb.collection(exports.INSTITUTIONS).doc(institutionId).get());
         console.log(institution);
         return institution;
     }
@@ -77,11 +77,17 @@ let InstitutionFirestoreAdaptor = class InstitutionFirestoreAdaptor {
             updated: true,
         });
     }
+    async asignInstitutionOwner(institutionId, ownerId) {
+        const institution = await app_1.adminDb.collection(exports.INSTITUTIONS).doc(institutionId).set({
+            ownerId: ownerId,
+        }, { merge: true });
+        return institution;
+    }
     async getAllInstitutionTeachers(institutionId) {
         const teachers = app_1.adminDb
             .collection(GroupFirebaseAdaptor_1.TEACHERS)
             .where("institutionId", "array-contains", institutionId);
-        return firestoreUtils_1.manyDocumentsOrErrorP(teachers.get());
+        return (0, firestoreUtils_1.manyDocumentsOrErrorP)(teachers.get());
         /*const institutionRef = await adminDb.collection(INSTITUTIONS).doc(institutionId);
         console.log("insitutionRef: " + institutionRef)
         const institutionHsTeacherDocs = await manyDocumentsOrErrorP<institutionHasTeacherDto>(adminDb
@@ -98,11 +104,13 @@ let InstitutionFirestoreAdaptor = class InstitutionFirestoreAdaptor {
         console.log("teacherIds: " + teachersIds)
         return teachersIds */
     }
+    async addRoleToInstitution(userId, institutionId) {
+    }
     async getAlTeacherInstitutionIds(institutionId) {
         const institutionTeachersSnapShot = await app_1.adminDb
             .collection(GroupFirebaseAdaptor_1.TEACHERS)
             .where("institutionId", "array-contains", institutionId);
-        const teachers = await firestoreUtils_1.manyDocumentsOrErrorP(institutionTeachersSnapShot.get());
+        const teachers = await (0, firestoreUtils_1.manyDocumentsOrErrorP)(institutionTeachersSnapShot.get());
         return teachers.map((teacher) => {
             return teacher.id;
         });
@@ -121,13 +129,13 @@ let InstitutionFirestoreAdaptor = class InstitutionFirestoreAdaptor {
         this.setTeacherPlan(teacherId, institutionId, plan);
     }
     async findTeacherInstitutionsIds(teacherId) {
-        const teacher = await firestoreUtils_1.oneDocumentP(app_1.adminDb.collection(GroupFirebaseAdaptor_1.TEACHERS).doc(teacherId).get());
+        const teacher = await (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb.collection(GroupFirebaseAdaptor_1.TEACHERS).doc(teacherId).get());
         teacher.institutionIds.map((Id) => {
             return Id;
         });
     }
     async getInstituionBasicInfo(institutionId) {
-        const institution = await firestoreUtils_1.oneDocumentP(app_1.adminDb.collection(exports.INSTITUTIONS).doc(institutionId).get());
+        const institution = await (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb.collection(exports.INSTITUTIONS).doc(institutionId).get());
         return institution;
     }
     async addPlayerToInstitution(playerId, institutionId) {
@@ -149,7 +157,7 @@ let InstitutionFirestoreAdaptor = class InstitutionFirestoreAdaptor {
             },
             teacherId: invitation.teacherId,
             invitationStatus: "pending",
-            type: "enter_institution",
+            type: "enter_institution", // TODO: invitationTypes
         })
             .catch((err) => {
             throw err instanceof errorUtils_1.BadRequestError;
@@ -164,7 +172,6 @@ let InstitutionFirestoreAdaptor = class InstitutionFirestoreAdaptor {
             .update({
             institutionId: firebase_admin_1.firestore.FieldValue.arrayUnion(body.institutionId),
         });
-        console.log("createInstitutionHasTeacherDocument");
         await app_1.adminDb
             .collection(exports.INSTITUTIONS_HAS_TEACHERS)
             .doc(`${body.teacher.id}_${body.institutionId}`)
@@ -175,7 +182,9 @@ let InstitutionFirestoreAdaptor = class InstitutionFirestoreAdaptor {
             questInGroups: body.questsInGroup,
             role: body.role,
             teacherId: body.teacherId,
-        }, { merge: true });
+        }, {
+            merge: true
+        });
         return teacherUpdated;
     }
     async setInstitutionSecurity(institutionId, update // TODO: UpdateFirestoreDocument<InstitutionSecurity>
@@ -210,8 +219,8 @@ let InstitutionFirestoreAdaptor = class InstitutionFirestoreAdaptor {
     }
     //Se o professor já estiver na instituição retorna verdadeiro
     async checkIfTeacherIsInInstitution(teacherId, institutionId) {
-        const teacher = await firestoreUtils_1.oneDocumentP(app_1.adminDb.collection(GroupFirebaseAdaptor_1.TEACHERS).doc(teacherId).get());
-        if (!class_validator_1.arrayContains(teacher.institutionIds, [institutionId])) {
+        const teacher = await (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb.collection(GroupFirebaseAdaptor_1.TEACHERS).doc(teacherId).get());
+        if (!(0, class_validator_1.arrayContains)(teacher.institutionIds, [institutionId])) {
             return false;
         }
         else {
@@ -222,31 +231,7 @@ let InstitutionFirestoreAdaptor = class InstitutionFirestoreAdaptor {
         const invitations = await app_1.adminDb
             .collection(exports.INSTITUTIONINVITATIONS)
             .where("invitationStatus", "==", "pending");
-        return firestoreUtils_1.manyDocumentsOrErrorP(invitations.get());
-    }
-    async getTeacherStatistics(teacherId) {
-        //pegar quantidade de alunos que interagiram com esse professor.
-        // pegar quantidade de grupos que esse professor tem.
-        //pegar quantidade de quests que esse professor publicou.
-        const teacherGroups = await app_1.adminDb
-            .collection(exports.GROUPS)
-            .where("teacherId", "==", teacherId);
-        const groups = await firestoreUtils_1.manyDocumentsOrErrorP(teacherGroups.get());
-        const groupPlayersIds = groups.flatMap((group) => {
-            return group.players;
-        });
-        console.log(groupPlayersIds);
-        let playerIds = [];
-        groupPlayersIds.map((id) => {
-            console.log("id dentro do map " + id);
-            if (!class_validator_1.arrayContains(playerIds, [id])) {
-                playerIds.push(id);
-            }
-            else {
-                console.log("já tinha o id");
-            }
-        });
-        return playerIds.length;
+        return (0, firestoreUtils_1.manyDocumentsOrErrorP)(invitations.get());
     }
     async setTeacherPlan(teacherId, institutionId, update // TODO: UpdateFirestoreDocument<TeacherInstitutionPlan>
     ) {
@@ -257,7 +242,7 @@ let InstitutionFirestoreAdaptor = class InstitutionFirestoreAdaptor {
     }
 };
 InstitutionFirestoreAdaptor = __decorate([
-    tsyringe_1.Singleton(),
+    (0, tsyringe_1.Singleton)(),
     __metadata("design:paramtypes", [])
 ], InstitutionFirestoreAdaptor);
 exports.InstitutionFirestoreAdaptor = InstitutionFirestoreAdaptor;

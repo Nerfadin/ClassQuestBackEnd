@@ -25,8 +25,8 @@ let TaskService = class TaskService {
     }
 };
 TaskService = __decorate([
-    tsyringe_1.Singleton(),
-    __param(0, tsyringe_1.Inject(() => TaskFirestoreAdaptor_1.TaskFirestoreAdaptor)),
+    (0, tsyringe_1.Singleton)(),
+    __param(0, (0, tsyringe_1.Inject)(() => TaskFirestoreAdaptor_1.TaskFirestoreAdaptor)),
     __metadata("design:paramtypes", [TaskFirestoreAdaptor_1.TaskFirestoreAdaptor])
 ], TaskService);
 exports.TaskService = TaskService;

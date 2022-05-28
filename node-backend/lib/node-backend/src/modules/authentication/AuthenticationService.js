@@ -65,6 +65,17 @@ let AuthenticationService = class AuthenticationService {
         await this.userService.savePlayer(register.localId, Object.assign(Object.assign({}, playerBaseStats), { email: registerDto.email, firstName: registerDto.firstName, lastName: registerDto.lastName, characterCreated: false }));
         return register;
     }
+    async updateCustomClaims() {
+    }
+    async registerPlayerWithInstitution(registerDto, institutionID) {
+        const register = await this.authenticationDao.register(registerDto);
+        await this.userService.savePlayerStats(register.localId, {
+            completedQuests: {},
+            completedQuestsCount: 0,
+        });
+        await this.userService.savePlayer(register.localId, Object.assign(Object.assign({}, playerBaseStats), { email: registerDto.email, firstName: registerDto.firstName, lastName: registerDto.lastName, characterCreated: false }));
+        return register;
+    }
     registerStepTwo(registerDto, userId) {
         return this.userService
             .savePlayer(userId, {
@@ -76,10 +87,10 @@ let AuthenticationService = class AuthenticationService {
     }
 };
 AuthenticationService = __decorate([
-    tsyringe_1.Singleton(),
-    __param(0, tsyringe_1.Inject(() => AuthenticationHttpAdaptor_1.AuthenticationHttpAdaptor)),
-    __param(1, tsyringe_1.Inject(() => UserService_1.UserService)),
-    __param(2, tsyringe_1.Inject(() => deviceIdAdapter_1.DeviceIdAdapter)),
+    (0, tsyringe_1.Singleton)(),
+    __param(0, (0, tsyringe_1.Inject)(() => AuthenticationHttpAdaptor_1.AuthenticationHttpAdaptor)),
+    __param(1, (0, tsyringe_1.Inject)(() => UserService_1.UserService)),
+    __param(2, (0, tsyringe_1.Inject)(() => deviceIdAdapter_1.DeviceIdAdapter)),
     __metadata("design:paramtypes", [AuthenticationHttpAdaptor_1.AuthenticationHttpAdaptor,
         UserService_1.UserService,
         deviceIdAdapter_1.DeviceIdAdapter])

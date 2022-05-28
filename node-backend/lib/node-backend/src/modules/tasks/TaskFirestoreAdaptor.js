@@ -33,7 +33,7 @@ let TaskFirestoreAdaptor = class TaskFirestoreAdaptor {
     }
 };
 TaskFirestoreAdaptor = __decorate([
-    tsyringe_1.Singleton()
+    (0, tsyringe_1.Singleton)()
 ], TaskFirestoreAdaptor);
 exports.TaskFirestoreAdaptor = TaskFirestoreAdaptor;
 //# sourceMappingURL=TaskFirestoreAdaptor.js.map

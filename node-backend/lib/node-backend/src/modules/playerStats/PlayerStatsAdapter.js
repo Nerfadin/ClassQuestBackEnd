@@ -14,7 +14,7 @@ const STATS = "characterStats";
 let PlayerStatsAdapter = class PlayerStatsAdapter {
     getPlayerStats(playerId) {
         const playerStatsSnap = app_1.adminDb.collection(STATS).doc(playerId).get();
-        return firestoreUtils_1.oneDocumentP(playerStatsSnap);
+        return (0, firestoreUtils_1.oneDocumentP)(playerStatsSnap);
     }
     savePlayerStats(playerId, playerStats) {
         return app_1.adminDb.collection(STATS).doc(playerId).set({ playerStats });
@@ -46,7 +46,7 @@ let PlayerStatsAdapter = class PlayerStatsAdapter {
     }
 };
 PlayerStatsAdapter = __decorate([
-    tsyringe_1.Singleton()
+    (0, tsyringe_1.Singleton)()
 ], PlayerStatsAdapter);
 exports.PlayerStatsAdapter = PlayerStatsAdapter;
 //# sourceMappingURL=PlayerStatsAdapter.js.map

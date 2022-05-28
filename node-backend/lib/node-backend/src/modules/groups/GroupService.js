@@ -75,9 +75,9 @@ let GroupService = class GroupService {
     }
 };
 GroupService = __decorate([
-    tsyringe_1.Singleton(),
-    __param(0, tsyringe_1.Inject(() => GroupFirebaseAdaptor_1.GroupFirebaseAdaptor)),
-    __param(1, tsyringe_1.Inject(() => UserService_1.UserService)),
+    (0, tsyringe_1.Singleton)(),
+    __param(0, (0, tsyringe_1.Inject)(() => GroupFirebaseAdaptor_1.GroupFirebaseAdaptor)),
+    __param(1, (0, tsyringe_1.Inject)(() => UserService_1.UserService)),
     __metadata("design:paramtypes", [GroupFirebaseAdaptor_1.GroupFirebaseAdaptor,
         UserService_1.UserService])
 ], GroupService);

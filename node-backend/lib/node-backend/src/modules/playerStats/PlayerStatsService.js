@@ -39,8 +39,8 @@ let PlayerStatsService = class PlayerStatsService {
     }
 };
 PlayerStatsService = __decorate([
-    tsyringe_1.Singleton(),
-    __param(0, tsyringe_1.Inject(() => PlayerStatsAdapter_1.PlayerStatsAdapter)),
+    (0, tsyringe_1.Singleton)(),
+    __param(0, (0, tsyringe_1.Inject)(() => PlayerStatsAdapter_1.PlayerStatsAdapter)),
     __metadata("design:paramtypes", [PlayerStatsAdapter_1.PlayerStatsAdapter])
 ], PlayerStatsService);
 exports.PlayerStatsService = PlayerStatsService;

@@ -19,7 +19,7 @@ let DailyServiceFirebaseAdaptor = class DailyServiceFirebaseAdaptor {
             .set(playerDailyReward, { merge: true });
     }
     getDaily(userId) {
-        return firestoreUtils_1.oneDocumentP(app_1.adminDb.collection("daily").doc(userId).get()).catch((e) => {
+        return (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb.collection("daily").doc(userId).get()).catch((e) => {
             if (e instanceof errorUtils_1.EntityNotFoundError)
                 return undefined;
             else
@@ -28,7 +28,7 @@ let DailyServiceFirebaseAdaptor = class DailyServiceFirebaseAdaptor {
     }
 };
 DailyServiceFirebaseAdaptor = __decorate([
-    tsyringe_1.Singleton()
+    (0, tsyringe_1.Singleton)()
 ], DailyServiceFirebaseAdaptor);
 exports.DailyServiceFirebaseAdaptor = DailyServiceFirebaseAdaptor;
 //# sourceMappingURL=DailyServiceFirebaseAdaptor.js.map

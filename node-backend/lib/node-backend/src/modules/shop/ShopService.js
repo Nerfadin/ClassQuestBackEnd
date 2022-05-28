@@ -25,7 +25,7 @@ let ShopService = class ShopService {
     }
     async getShopItems() {
         const shop = await this.shopDao.getShop();
-        const expiresIn = dayjs_1.default(shop.nextRefreshAt.toDate()).diff(dayjs_1.default(), "minute"); // quantos minutos faltam
+        const expiresIn = (0, dayjs_1.default)(shop.nextRefreshAt.toDate()).diff((0, dayjs_1.default)(), "minute"); // quantos minutos faltam
         return Object.assign(Object.assign({}, shop), { expiresIn });
     }
     refreshShop(nextRefreshTime) {
@@ -36,8 +36,8 @@ let ShopService = class ShopService {
     }
 };
 ShopService = __decorate([
-    tsyringe_1.Singleton(),
-    __param(0, tsyringe_1.Inject(() => ShopFirebaseAdapter_1.ShopFirebaseAdapter)),
+    (0, tsyringe_1.Singleton)(),
+    __param(0, (0, tsyringe_1.Inject)(() => ShopFirebaseAdapter_1.ShopFirebaseAdapter)),
     __metadata("design:paramtypes", [ShopFirebaseAdapter_1.ShopFirebaseAdapter])
 ], ShopService);
 exports.ShopService = ShopService;

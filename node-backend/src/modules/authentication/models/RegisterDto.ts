@@ -16,3 +16,11 @@ export type RegisterPayload = {
   refreshToken: string;
   expiresIn: string; // "3600"
 };
+export interface AuthCustomClaims {
+  userId: string;
+  roles: InstitutionRoles[];
+}
+export interface InstitutionRoles {
+  institutionId: string;
+  role: string;
+}

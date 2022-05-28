@@ -11,7 +11,7 @@ const nodemailer_1 = require("nodemailer");
 const tsyringe_1 = require("../../utils/tsyringe");
 let EmailService = class EmailService {
     constructor() {
-        this.transporter = nodemailer_1.createTransport({
+        this.transporter = (0, nodemailer_1.createTransport)({
             // service: "Hotmail",
             // auth: {
             //   //classquestedu@gmail.com
@@ -25,7 +25,7 @@ let EmailService = class EmailService {
             secure: true,
             auth: {
                 user: "apikey",
-                pass: `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`,
+                pass: `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`, // generated ethereal password
             },
         });
     }
@@ -88,7 +88,7 @@ let EmailService = class EmailService {
     }
 };
 EmailService = __decorate([
-    tsyringe_1.Singleton()
+    (0, tsyringe_1.Singleton)()
 ], EmailService);
 exports.EmailService = EmailService;
 //# sourceMappingURL=EmailService.js.map

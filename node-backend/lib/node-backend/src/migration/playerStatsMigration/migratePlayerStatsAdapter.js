@@ -45,14 +45,14 @@ let PlayerMigration = class PlayerMigration {
         return playersWithStats;
     }
     async createPlayerStats(playerId) {
-        if (!class_validator_1.arrayContains(playersWithStats, [playerId])) {
+        if (!(0, class_validator_1.arrayContains)(playersWithStats, [playerId])) {
             await this.playerService.createPlayerStats(playerId);
         }
     }
 };
 PlayerMigration = __decorate([
-    tsyringe_1.Singleton(),
-    __param(0, tsyringe_1.Inject(() => PlayerFirebaseAdapter_1.PlayerFirebaseAdapter)),
+    (0, tsyringe_1.Singleton)(),
+    __param(0, (0, tsyringe_1.Inject)(() => PlayerFirebaseAdapter_1.PlayerFirebaseAdapter)),
     __metadata("design:paramtypes", [PlayerFirebaseAdapter_1.PlayerFirebaseAdapter])
 ], PlayerMigration);
 exports.PlayerMigration = PlayerMigration;

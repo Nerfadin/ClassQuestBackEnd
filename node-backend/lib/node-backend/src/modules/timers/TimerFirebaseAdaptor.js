@@ -17,7 +17,7 @@ let TimerFirebaseAdaptor = class TimerFirebaseAdaptor {
         return app_1.adminDb.collection(TIMERS).doc(userId).set(update, { merge: true });
     }
     getEvents(userId) {
-        return firestoreUtils_1.oneDocumentP(// TODO: TeacherInstitutionPlan
+        return (0, firestoreUtils_1.oneDocumentP)(// TODO: TeacherInstitutionPlan
         app_1.adminDb.collection(TIMERS).doc(userId).get()).catch((err) => {
             if (err instanceof errorUtils_1.EntityNotFoundError) {
                 return { id: userId };
@@ -28,7 +28,7 @@ let TimerFirebaseAdaptor = class TimerFirebaseAdaptor {
     }
 };
 TimerFirebaseAdaptor = __decorate([
-    tsyringe_1.Singleton()
+    (0, tsyringe_1.Singleton)()
 ], TimerFirebaseAdaptor);
 exports.TimerFirebaseAdaptor = TimerFirebaseAdaptor;
 //# sourceMappingURL=TimerFirebaseAdaptor.js.map

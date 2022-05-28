@@ -25,7 +25,7 @@ let QuestFirebaseAdaptor = class QuestFirebaseAdaptor {
             .set(answer);
     }
     getAnswer(userId, questId) {
-        return firestoreUtils_1.oneDocumentP(app_1.adminDb
+        return (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb
             .collection(exports.PLAYERS)
             .doc(userId)
             .collection("answers")
@@ -33,17 +33,17 @@ let QuestFirebaseAdaptor = class QuestFirebaseAdaptor {
             .get());
     }
     getQuestByScore(playerId, minimumscore) {
-        return firestoreUtils_1.manyDocumentsOrErrorP(app_1.adminDb.collection(exports.PLAYERS).
+        return (0, firestoreUtils_1.manyDocumentsOrErrorP)(app_1.adminDb.collection(exports.PLAYERS).
             doc(playerId).
             collection(exports.ANSWERS).
             where("score", "<=", minimumscore)
             .get()).then((quests) => quests.map(questFirestoreToQuestDto_1.questInGroupFirestoreToQuestInGroupDto));
     }
     getQuest(questId) {
-        return firestoreUtils_1.oneDocumentP(app_1.adminDb.collection(GroupFirebaseAdaptor_1.QUESTS_IN_GROUPS).doc(questId).get()).then(questFirestoreToQuestDto_1.questInGroupFirestoreToQuestInGroupDto);
+        return (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb.collection(GroupFirebaseAdaptor_1.QUESTS_IN_GROUPS).doc(questId).get()).then(questFirestoreToQuestDto_1.questInGroupFirestoreToQuestInGroupDto);
     }
     getPublishedQuests(teacherId) {
-        return firestoreUtils_1.manyDocumentsOrErrorP(app_1.adminDb
+        return (0, firestoreUtils_1.manyDocumentsOrErrorP)(app_1.adminDb
             .collection(GroupFirebaseAdaptor_1.QUESTS_IN_GROUPS)
             .where("teacherId", "==", teacherId)
             .get()).then((quests) => quests.map(questFirestoreToQuestDto_1.questInGroupFirestoreToQuestInGroupDto));
@@ -54,7 +54,7 @@ let QuestFirebaseAdaptor = class QuestFirebaseAdaptor {
     }
 };
 QuestFirebaseAdaptor = __decorate([
-    tsyringe_1.Singleton()
+    (0, tsyringe_1.Singleton)()
 ], QuestFirebaseAdaptor);
 exports.QuestFirebaseAdaptor = QuestFirebaseAdaptor;
 //# sourceMappingURL=QuestFirebaseAdaptor.js.map

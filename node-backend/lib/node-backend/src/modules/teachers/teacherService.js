@@ -47,8 +47,8 @@ let TeacherService = class TeacherService {
     }
 };
 TeacherService = __decorate([
-    tsyringe_1.Singleton(),
-    __param(0, tsyringe_1.Inject(() => teacherFirebaseAdaptor_1.TeacherFirebaseAdaptor)),
+    (0, tsyringe_1.Singleton)(),
+    __param(0, (0, tsyringe_1.Inject)(() => teacherFirebaseAdaptor_1.TeacherFirebaseAdaptor)),
     __metadata("design:paramtypes", [teacherFirebaseAdaptor_1.TeacherFirebaseAdaptor])
 ], TeacherService);
 exports.TeacherService = TeacherService;

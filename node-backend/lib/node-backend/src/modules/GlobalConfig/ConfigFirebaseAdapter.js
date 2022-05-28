@@ -14,11 +14,11 @@ const CONFIG = "Config";
 const CONFIGDOC = "GameConfig";
 let ConfigFirebaseAdapter = class ConfigFirebaseAdapter {
     getConfigs() {
-        return firestoreUtils_1.oneDocumentP(app_1.adminDb.collection(CONFIG).doc(CONFIGDOC).get());
+        return (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb.collection(CONFIG).doc(CONFIGDOC).get());
     }
 };
 ConfigFirebaseAdapter = __decorate([
-    tsyringe_1.Singleton()
+    (0, tsyringe_1.Singleton)()
 ], ConfigFirebaseAdapter);
 exports.ConfigFirebaseAdapter = ConfigFirebaseAdapter;
 //# sourceMappingURL=ConfigFirebaseAdapter.js.map

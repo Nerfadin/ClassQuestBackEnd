@@ -59,10 +59,10 @@ let InstitutionFacade = class InstitutionFacade {
     }
 };
 InstitutionFacade = __decorate([
-    tsyringe_1.Singleton(),
-    __param(0, tsyringe_1.Inject(() => teacherService_1.TeacherService)),
-    __param(1, tsyringe_1.Inject(() => InstitutionService_1.InstitutionService)),
-    __param(2, tsyringe_1.Inject(() => UserFirestoreAdaptor_1.UserFirestoreAdaptor)),
+    (0, tsyringe_1.Singleton)(),
+    __param(0, (0, tsyringe_1.Inject)(() => teacherService_1.TeacherService)),
+    __param(1, (0, tsyringe_1.Inject)(() => InstitutionService_1.InstitutionService)),
+    __param(2, (0, tsyringe_1.Inject)(() => UserFirestoreAdaptor_1.UserFirestoreAdaptor)),
     __metadata("design:paramtypes", [teacherService_1.TeacherService,
         InstitutionService_1.InstitutionService,
         UserFirestoreAdaptor_1.UserFirestoreAdaptor])

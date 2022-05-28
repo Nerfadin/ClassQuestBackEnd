@@ -22,8 +22,8 @@ let ConfigService = class ConfigService {
     }
 };
 ConfigService = __decorate([
-    tsyringe_1.Singleton(),
-    __param(0, tsyringe_1.Inject(() => ConfigFirebaseAdapter_1.ConfigFirebaseAdapter)),
+    (0, tsyringe_1.Singleton)(),
+    __param(0, (0, tsyringe_1.Inject)(() => ConfigFirebaseAdapter_1.ConfigFirebaseAdapter)),
     __metadata("design:paramtypes", [ConfigFirebaseAdapter_1.ConfigFirebaseAdapter])
 ], ConfigService);
 exports.ConfigService = ConfigService;

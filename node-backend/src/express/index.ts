@@ -1,12 +1,11 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import {
   expressErrorHandler,
   returnFailureOrSuccessExpress,
   verifyAuthenticated,
-  recoverPassword,
-  checkDeviceId,
+  recoverPassword
 } from "./express-helpers";
 import { build } from "../utils/tsyringe";
 import { InstitutionFacade } from "../modules/institutions/InstitutionFacade";
@@ -34,24 +33,38 @@ import { PlayerInventoryService } from "../modules/playerInventory/PlayerInvento
 //import {InstitutionMigrationAdapter} from "../migration/institutionMigration/institutionMigrationAdapter";
 //import { ReportsFacade } from "../modules/report/ReportFacade";
 import { QuestMigrator } from '../migration/questMigration/questMigrationAdapter';
-import { SubjectFirebaseAdapter } from '../modules/subjectsSystem/SubjectFirebaseAdapter';
+import { SubjectService } from '../modules/subjectsSystem/subjectService';
+import { OwnerFirebaseAdapter } from '../modules/institutions/owner/ownerFirebaseAdapter';
 export const app = express();
-app.use(cors({ origin: true }));
+app.use(cors({ origin: '*' }));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+/*----------------- OWNER ----------------- */
 
 /* ----------------- SUBJECTS ----------------- */
+
 app.post('/subjects/create', returnFailureOrSuccessExpress((req => {
   const subjectDto = req.body;
-  const subjectService = build(SubjectFirebaseAdapter);
-  return subjectService.CreateSubject(subjectDto.subjectName, subjectDto.subjectSlug);
+  const subjectService = build(SubjectService);
+  return subjectService.CreateSubject(subjectDto);
 })))
 app.get('/subjects/slug/:subjectSlug', returnFailureOrSuccessExpress((req => {
-  const subjectService = build(SubjectFirebaseAdapter);
-  return subjectService.searchSubjectBySlug(req.params.subjectSlug);
-
+  const subjectService = build(SubjectService);
+  return subjectService.SearchSubjectBySlug(req.params.subjectSlug);
 })))
+
+app.get('/subjects/name/:subjectName', returnFailureOrSuccessExpress((req => {
+  const subjectService = build(SubjectService);
+  return subjectService.SearchSubjectByFullName(req.params.subjectName);
+})))
+
+app.get('/subjects/main', returnFailureOrSuccessExpress((req => {
+  const subjectService = build(SubjectService);
+  return subjectService.GetMainSubjects();
+})))
+
 /*PLAYER INVENTORY */
 app.post(
   "/player/inventory/save",
@@ -61,6 +74,10 @@ app.post(
     return inventorySystem.savePlayerInventoryComplete(req.body);
   })
 );
+app.post('/institution/owner', returnFailureOrSuccessExpress((req => {
+  const subjectService = build(OwnerFirebaseAdapter);
+  return subjectService.CreateOwner(req.body);
+})))
 app.get(
   "/player/inventory/:playerId",
   verifyAuthenticated(),
@@ -331,6 +348,8 @@ app.get(
   "/players/stats",
   verifyAuthenticated(),
   returnFailureOrSuccessExpress((req, user) => {
+    //Quais são os métodos que a conexão pode realizar na API
+
     const playerService = build(PlayerStatsService);
     return playerService.getPlayerStats(user.uid);
   })
@@ -346,7 +365,6 @@ app.post(
 app.post(
   "/players/stats/save",
   verifyAuthenticated(),
-  checkDeviceId(),
   returnFailureOrSuccessExpress((req, user) => {
     const playerService = build(PlayerStatsService);
     return playerService.savePlayerStats(user.uid, req.body);
@@ -387,7 +405,7 @@ app.get(
 
 app.get(
   "/alerts/all",
-  returnFailureOrSuccessExpress((req) => {
+  returnFailureOrSuccessExpress((req, res) => {
     const alertAdapter = build(AlertFirebaseAdapter);
     return alertAdapter.fetchActiveAlerts();
   })
@@ -603,10 +621,14 @@ app.get("/", (req, res) => {
     <h3> Hello World! </h3>
     <h4> Routes: </h4>
     ${getRoutes(app)
-      .filter((t) => !t.includes(","))
-      .map((r) => "<p>" + r + "</p>")}
+      .filter((t) => !t.includes(",")).map((r) => "<p>" + r + "</p>")}
   `);
 });
+app.post('/fileHandler/injest',
+  (req: Request, res: Response) => {
+    console.log(req.file)
+    return res.send(req.body);
+  })
 app.use((req, res, next) => {
   res.status(404).send({
     statusCode: 404,
@@ -614,5 +636,6 @@ app.use((req, res, next) => {
     message: "Rota não encontrada",
   });
 });
+
 app.use(expressErrorHandler);
 export default app;

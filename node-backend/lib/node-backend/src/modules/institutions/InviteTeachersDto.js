@@ -14,11 +14,11 @@ const class_validator_1 = require("class-validator");
 class InviteTeachersDto {
 }
 __decorate([
-    class_validator_1.IsNotEmpty(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], InviteTeachersDto.prototype, "directorId", void 0);
 __decorate([
-    class_validator_1.IsNotEmpty(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], InviteTeachersDto.prototype, "institutionId", void 0);
 exports.InviteTeachersDto = InviteTeachersDto;

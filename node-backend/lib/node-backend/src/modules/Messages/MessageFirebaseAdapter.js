@@ -19,7 +19,7 @@ let MessageFireBaseAdapter = class MessageFireBaseAdapter {
     // TODO: Alterar essa chamada para usar o message Service
     async getMessagesIdsFromGroup(pin) {
         try {
-            return await firestoreUtils_1.oneDocumentP(app_1.adminDb
+            return await (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb
                 .collection(exports.GROUPS)
                 .doc(pin)
                 .get()).then((group) => group.messages);
@@ -79,13 +79,13 @@ let MessageFireBaseAdapter = class MessageFireBaseAdapter {
         const docRefs = ids.map((id) => app_1.adminDb
             .collection(exports.MESSAGES)
             .doc(id));
-        const firestoreMessages = await Promise.all(docRefs.map((d) => firestoreUtils_1.oneDocumentP(d.get())));
+        const firestoreMessages = await Promise.all(docRefs.map((d) => (0, firestoreUtils_1.oneDocumentP)(d.get())));
         const messagesAvailable = firestoreMessages.filter((message) => !!message);
         return messagesAvailable;
     }
 };
 MessageFireBaseAdapter = __decorate([
-    tsyringe_1.singleton()
+    (0, tsyringe_1.singleton)()
 ], MessageFireBaseAdapter);
 exports.MessageFireBaseAdapter = MessageFireBaseAdapter;
 //# sourceMappingURL=MessageFirebaseAdapter.js.map

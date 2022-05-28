@@ -14,14 +14,14 @@ exports.QUESTS = "quests";
 exports.ANSWERS = "answers";
 let reportMigrationFacade = class reportMigrationFacade {
     CreateQuestReport(quest) {
-        const questService = tsyringe_1.build(QuestService_1.QuestService);
+        const questService = (0, tsyringe_1.build)(QuestService_1.QuestService);
         const report = questService.getReport(quest);
         console.log(report);
         return report;
     }
 };
 reportMigrationFacade = __decorate([
-    tsyringe_1.Singleton()
+    (0, tsyringe_1.Singleton)()
 ], reportMigrationFacade);
 exports.reportMigrationFacade = reportMigrationFacade;
 //# sourceMappingURL=reportMigrationFacade.js.map

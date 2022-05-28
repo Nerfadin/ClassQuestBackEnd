@@ -27,10 +27,10 @@ let UserFirestoreAdaptor = UserFirestoreAdaptor_1 = class UserFirestoreAdaptor {
         });
     }
     getPlayer(id) {
-        return firestoreUtils_1.oneDocumentP(app_1.adminDb.collection(PLAYERS).doc(id).get());
+        return (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb.collection(PLAYERS).doc(id).get());
     }
     getPlayerStats(id) {
-        return firestoreUtils_1.oneDocumentP(app_1.adminDb.collection(PLAYER_STATS).doc(id).get());
+        return (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb.collection(PLAYER_STATS).doc(id).get());
     }
     savePlayerStats(playerId, updateDto) {
         return app_1.adminDb
@@ -39,7 +39,7 @@ let UserFirestoreAdaptor = UserFirestoreAdaptor_1 = class UserFirestoreAdaptor {
             .set(updateDto, { merge: true });
     }
     getTeacher(id) {
-        return firestoreUtils_1.oneDocumentP(app_1.adminDb.collection(TEACHERS).doc(id).get());
+        return (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb.collection(TEACHERS).doc(id).get());
     }
     savePlayer(id, player) {
         return app_1.adminDb.collection(PLAYERS).doc(id).set(player, { merge: true });
@@ -58,7 +58,7 @@ let UserFirestoreAdaptor = UserFirestoreAdaptor_1 = class UserFirestoreAdaptor {
         return result;
     }
     getUserRegisterToken(tokenId) {
-        const token = firestoreUtils_1.oneDocumentP(app_1.adminDb.collection(USER_REGISTER_TOKEN).doc(tokenId).get());
+        const token = (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb.collection(USER_REGISTER_TOKEN).doc(tokenId).get());
         return token;
     }
     deleteUserRegisterToken(tokenId) {
@@ -80,7 +80,7 @@ let UserFirestoreAdaptor = UserFirestoreAdaptor_1 = class UserFirestoreAdaptor {
     incrementTeacherValues(teacherId, values) {
         var _a, _b, _c, _d;
         // TODO: (this) is not working because of circular DI
-        return tsyringe_1.build(UserFirestoreAdaptor_1).updateTeacher(teacherId, {
+        return (0, tsyringe_1.build)(UserFirestoreAdaptor_1).updateTeacher(teacherId, {
             studentsCount: firebase_admin_1.firestore.FieldValue.increment((_a = values.studentsCount) !== null && _a !== void 0 ? _a : 0),
             publishedActivitiesCount: firebase_admin_1.firestore.FieldValue.increment((_b = values.publishedActivitiesCount) !== null && _b !== void 0 ? _b : 0),
             studentsCompletedActivityCount: firebase_admin_1.firestore.FieldValue.increment((_c = values.studentsCompletedActivityCount) !== null && _c !== void 0 ? _c : 0),
@@ -89,7 +89,7 @@ let UserFirestoreAdaptor = UserFirestoreAdaptor_1 = class UserFirestoreAdaptor {
     }
 };
 UserFirestoreAdaptor = UserFirestoreAdaptor_1 = __decorate([
-    tsyringe_1.Singleton()
+    (0, tsyringe_1.Singleton)()
 ], UserFirestoreAdaptor);
 exports.UserFirestoreAdaptor = UserFirestoreAdaptor;
 //# sourceMappingURL=UserFirestoreAdaptor.js.map

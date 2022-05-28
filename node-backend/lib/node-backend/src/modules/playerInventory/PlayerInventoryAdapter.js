@@ -19,13 +19,13 @@ let PlayerInventoryAdapter = class PlayerInventoryAdapter {
             playerInventory: body.playerInventory,
             playerId: body.playerId,
         }, { merge: true });
-        return firestoreUtils_1.oneDocumentP(app_1.adminDb.collection(exports.PLAYER_INVENTORY).doc(body.playerId).get());
+        return (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb.collection(exports.PLAYER_INVENTORY).doc(body.playerId).get());
     }
     async savePlayerHouseInventory(itens, playerId) {
         await app_1.adminDb.collection(exports.PLAYER_INVENTORY).doc(playerId).set({
             playerHouseInventory: itens,
         }, { merge: true });
-        return firestoreUtils_1.oneDocumentP(app_1.adminDb.collection(exports.PLAYER_INVENTORY).doc(playerId).get());
+        return (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb.collection(exports.PLAYER_INVENTORY).doc(playerId).get());
     }
     async savePlayerChest(playerId, itens) {
         await app_1.adminDb.collection(exports.PLAYER_INVENTORY).doc(playerId).set({
@@ -47,11 +47,11 @@ let PlayerInventoryAdapter = class PlayerInventoryAdapter {
         return this.getPlayerInventory(playerId);
     }
     getPlayerInventory(playerId) {
-        return firestoreUtils_1.oneDocumentP(app_1.adminDb.collection(exports.PLAYER_INVENTORY).doc(playerId).get());
+        return (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb.collection(exports.PLAYER_INVENTORY).doc(playerId).get());
     }
 };
 PlayerInventoryAdapter = __decorate([
-    tsyringe_1.Singleton()
+    (0, tsyringe_1.Singleton)()
 ], PlayerInventoryAdapter);
 exports.PlayerInventoryAdapter = PlayerInventoryAdapter;
 //# sourceMappingURL=PlayerInventoryAdapter.js.map

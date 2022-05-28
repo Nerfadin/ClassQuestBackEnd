@@ -51,8 +51,8 @@ let HouseService = class HouseService {
     }
 };
 HouseService = __decorate([
-    tsyringe_1.Singleton(),
-    __param(0, tsyringe_1.Inject(() => HousingSystemAdapter_1.HouseFirebaseAdapter)),
+    (0, tsyringe_1.Singleton)(),
+    __param(0, (0, tsyringe_1.Inject)(() => HousingSystemAdapter_1.HouseFirebaseAdapter)),
     __metadata("design:paramtypes", [HousingSystemAdapter_1.HouseFirebaseAdapter])
 ], HouseService);
 exports.HouseService = HouseService;

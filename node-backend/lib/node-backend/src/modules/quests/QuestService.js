@@ -97,13 +97,13 @@ let QuestService = class QuestService {
     }
     async submitAnswer(answer, userId) {
         // if previously answered quest, throw error
-        const previousAnswer = await orUndefined_1.orUndefined(this.questsDao.getAnswer(userId, answer.questId));
+        const previousAnswer = await (0, orUndefined_1.orUndefined)(this.questsDao.getAnswer(userId, answer.questId));
         if (previousAnswer) {
             throw QuestErrors_1.QuestErrors.UserAlreadyAnswered(previousAnswer);
         }
         const quest = await this.questsDao.getQuest(answer.questId);
         if (quest.dataExpiracao &&
-            dayjs_1.default(quest.dataExpiracao.toDate()).isBefore(new Date())) {
+            (0, dayjs_1.default)(quest.dataExpiracao.toDate()).isBefore(new Date())) {
             throw QuestErrors_1.QuestErrors.QuestExpired(quest.dataExpiracao.toDate());
         }
         const group = await this.groupService.getGroup(quest.groupId);
@@ -129,10 +129,10 @@ let QuestService = class QuestService {
     }
 };
 QuestService = __decorate([
-    tsyringe_1.Singleton(),
-    __param(0, tsyringe_1.Inject(() => QuestFirebaseAdaptor_1.QuestFirebaseAdaptor)),
-    __param(1, tsyringe_1.Inject(() => UserService_1.UserService)),
-    __param(2, tsyringe_1.Inject(() => GroupService_1.GroupService)),
+    (0, tsyringe_1.Singleton)(),
+    __param(0, (0, tsyringe_1.Inject)(() => QuestFirebaseAdaptor_1.QuestFirebaseAdaptor)),
+    __param(1, (0, tsyringe_1.Inject)(() => UserService_1.UserService)),
+    __param(2, (0, tsyringe_1.Inject)(() => GroupService_1.GroupService)),
     __metadata("design:paramtypes", [QuestFirebaseAdaptor_1.QuestFirebaseAdaptor,
         UserService_1.UserService,
         GroupService_1.GroupService])
@@ -186,10 +186,10 @@ function didGetMultipleAnswerQuestionCorrect(question, answers) {
     const incorrectAnswers = question.answers
         .filter((a) => !a.isCorrect)
         .map((a) => a.id);
-    if (arr_1.includesAny(studentAnswers, incorrectAnswers)) {
+    if ((0, arr_1.includesAny)(studentAnswers, incorrectAnswers)) {
         return false;
     }
-    if (arr_1.includesAll(studentAnswers, correctAnswers)) {
+    if ((0, arr_1.includesAll)(studentAnswers, correctAnswers)) {
         return true;
     }
     return false;

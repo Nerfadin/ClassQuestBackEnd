@@ -49,8 +49,8 @@ let PlayerService = class PlayerService {
     }
 };
 PlayerService = __decorate([
-    tsyringe_1.Singleton(),
-    __param(0, tsyringe_1.Inject(() => PlayerFirebaseAdapter_1.PlayerFirebaseAdapter)),
+    (0, tsyringe_1.Singleton)(),
+    __param(0, (0, tsyringe_1.Inject)(() => PlayerFirebaseAdapter_1.PlayerFirebaseAdapter)),
     __metadata("design:paramtypes", [PlayerFirebaseAdapter_1.PlayerFirebaseAdapter])
 ], PlayerService);
 exports.PlayerService = PlayerService;

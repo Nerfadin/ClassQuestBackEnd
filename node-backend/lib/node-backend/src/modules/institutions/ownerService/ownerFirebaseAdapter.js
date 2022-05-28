@@ -6,16 +6,32 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.OwnerFirebaseAdapter = void 0;
+exports.OwnerFirebaseAdapter = exports.OWNEDINSTITUTION = exports.OWNER = void 0;
 const app_1 = require("../../../app");
 const tsyringe_1 = require("../../../utils/tsyringe");
+exports.OWNER = "owner";
+exports.OWNEDINSTITUTION = "ownedInstitution";
 let OwnerFirebaseAdapter = class OwnerFirebaseAdapter {
     async getOwnerInstitutions(ownerId) {
-        return app_1.adminDb.collection("institutions").where("ownedBy", "==", ownerId).get();
+        const ownedInstitutions = await app_1.adminDb.collection(exports.OWNER).doc(ownerId).collection(exports.OWNEDINSTITUTION).get();
+        return ownedInstitutions.docs.map((i) => {
+            return i.data;
+        });
+    }
+    async CreateOwner(owner) {
+        const ownerId = await app_1.adminDb.collection(exports.OWNER).add(owner);
+        return (await app_1.adminDb.collection(exports.OWNER).where("ownerId", "==", ownerId).get()).docs[0];
+    }
+    UpdateOwnerStatistics(ownerId) {
+    }
+    async addInstitutionToOwner(ownerId, institutionId) {
+        await app_1.adminDb.collection(exports.OWNER).doc(ownerId).collection(exports.OWNEDINSTITUTION).doc(institutionId).set({
+            institutionId
+        });
     }
 };
 OwnerFirebaseAdapter = __decorate([
-    tsyringe_1.Singleton()
+    (0, tsyringe_1.Singleton)()
 ], OwnerFirebaseAdapter);
 exports.OwnerFirebaseAdapter = OwnerFirebaseAdapter;
 //# sourceMappingURL=ownerFirebaseAdapter.js.map

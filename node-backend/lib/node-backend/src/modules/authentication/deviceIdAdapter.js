@@ -6,7 +6,7 @@ const generatePin_1 = require("../../utils/generatePin");
 const firestoreUtils_1 = require("../../utils/firestoreUtils");
 class DeviceIdAdapter {
     async createDeviceId(playerId) {
-        const deviceId = generatePin_1.generateDeviceId();
+        const deviceId = (0, generatePin_1.generateDeviceId)();
         await app_1.adminDb
             .collection("players")
             .doc(playerId)
@@ -14,7 +14,7 @@ class DeviceIdAdapter {
         return deviceId;
     }
     async getDeviceCloudId(playerId) {
-        const player = await firestoreUtils_1.oneDocumentP(app_1.adminDb.collection("players").doc(playerId).get());
+        const player = await (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb.collection("players").doc(playerId).get());
         return player.deviceId;
     }
 }

@@ -9,12 +9,11 @@ export class SubjectErrors {
       details: err
     });
   }  
-  static MessageNotAvailable(err: Error) {
+  static SubjectAlreadyExistsError(message: string) {
     return new EntityNotFoundError({
-      message: "Você não tem permissão para acessar essa matéria.",
-      type: "Unauthorized",
-      statusCode: 401,
-      details: err
+      message:message,
+      type: "CONFLICT_ententity_already_exists",
+      statusCode: 409,
     });
   }
   static MessageNotSend(err: Error) {

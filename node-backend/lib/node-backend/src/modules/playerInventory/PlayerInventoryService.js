@@ -57,8 +57,8 @@ let PlayerInventoryService = class PlayerInventoryService {
     }
 };
 PlayerInventoryService = __decorate([
-    tsyringe_1.Singleton(),
-    __param(0, tsyringe_1.Inject(() => PlayerInventoryAdapter_1.PlayerInventoryAdapter)),
+    (0, tsyringe_1.Singleton)(),
+    __param(0, (0, tsyringe_1.Inject)(() => PlayerInventoryAdapter_1.PlayerInventoryAdapter)),
     __metadata("design:paramtypes", [PlayerInventoryAdapter_1.PlayerInventoryAdapter])
 ], PlayerInventoryService);
 exports.PlayerInventoryService = PlayerInventoryService;

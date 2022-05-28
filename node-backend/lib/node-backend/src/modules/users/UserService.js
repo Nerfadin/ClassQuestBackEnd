@@ -64,8 +64,8 @@ let UserService = class UserService {
     }
 };
 UserService = __decorate([
-    tsyringe_1.Singleton(),
-    __param(0, tsyringe_1.Inject(() => UserFirestoreAdaptor_1.UserFirestoreAdaptor)),
+    (0, tsyringe_1.Singleton)(),
+    __param(0, (0, tsyringe_1.Inject)(() => UserFirestoreAdaptor_1.UserFirestoreAdaptor)),
     __metadata("design:paramtypes", [UserFirestoreAdaptor_1.UserFirestoreAdaptor // @Inject(() => GroupService) private groupsService: GroupService
     ])
 ], UserService);

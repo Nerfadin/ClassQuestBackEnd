@@ -105,9 +105,6 @@ export class InstitutionService {
   console.log ("INSIDE INSTITUTIONsERVICE")
   return teachers
   }  
-  async getTeacherStatistics(teacherId: string){
-  return this.institutionDao.getTeacherStatistics(teacherId);
-  }
     
   /*
   async inviteTeachers(data: InviteTeachersDto): Promise<void> {

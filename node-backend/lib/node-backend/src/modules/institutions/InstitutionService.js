@@ -45,7 +45,7 @@ let InstitutionService = class InstitutionService {
     async createInstitution(createDto, teacherId, institutionId) {
         // TODO: CreateInstitutionDto
         const institution = await this.institutionDao.createInstitution(createDto, teacherId);
-        const now = dayjs_1.default();
+        const now = (0, dayjs_1.default)();
         const inOneMonth = now.add(1, "month");
         const security = {
             //TODO: InstitutionSecurity
@@ -101,14 +101,11 @@ let InstitutionService = class InstitutionService {
         console.log("INSIDE INSTITUTIONsERVICE");
         return teachers;
     }
-    async getTeacherStatistics(teacherId) {
-        return this.institutionDao.getTeacherStatistics(teacherId);
-    }
 };
 InstitutionService = __decorate([
-    tsyringe_1.Singleton(),
-    __param(0, tsyringe_1.Inject(() => InstitutionFirestoreAdaptor_1.InstitutionFirestoreAdaptor)),
-    __param(1, tsyringe_1.Inject(() => TaskService_1.TaskService)),
+    (0, tsyringe_1.Singleton)(),
+    __param(0, (0, tsyringe_1.Inject)(() => InstitutionFirestoreAdaptor_1.InstitutionFirestoreAdaptor)),
+    __param(1, (0, tsyringe_1.Inject)(() => TaskService_1.TaskService)),
     __metadata("design:paramtypes", [InstitutionFirestoreAdaptor_1.InstitutionFirestoreAdaptor,
         TaskService_1.TaskService])
 ], InstitutionService);

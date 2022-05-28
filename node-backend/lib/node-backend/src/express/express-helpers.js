@@ -106,7 +106,7 @@ function replaceFirestore(value, prop) {
 function returnFailureOrSuccessExpress(resultF, removeFirebase = true) {
     return (req, res, next) => resultF(req, req.user)
         .then((result) => {
-        res.send(class_validator_1.isNotEmpty(result)
+        res.send((0, class_validator_1.isNotEmpty)(result)
             ? {
                 data: removeFirebase
                     ? replaceFirestore.call({}, result)
@@ -121,7 +121,7 @@ function returnFailureOrSuccessExpress(resultF, removeFirebase = true) {
 exports.returnFailureOrSuccessExpress = returnFailureOrSuccessExpress;
 const expressErrorHandler = (err, req, res, next) => {
     res.status(err.statusCode || 500).send({
-        error: serialize_error_1.serializeError(err),
+        error: (0, serialize_error_1.serializeError)(err),
     });
 };
 exports.expressErrorHandler = expressErrorHandler;

@@ -2,5 +2,21 @@
   "name": "backEndClassQuest",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:functions": "firebase emulators:start --only functions",
+    "dev:serve": "cd node-backend && npm run serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nerfadin/ClassQuestBackEnd.git"
+  },
+  "keywords": [],
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/Nerfadin/ClassQuestBackEnd/issues"
+  },
+  "homepage": "https://github.com/Nerfadin/ClassQuestBackEnd#readme",
+  "description": ""
 }

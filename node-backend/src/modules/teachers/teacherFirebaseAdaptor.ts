@@ -28,8 +28,27 @@ export class TeacherFirebaseAdaptor {
     return teacher;
 
   }
-  async createTeacher(teacherId: string){
-    
+  async getTeacherStatistics(teacherId: string) {
+    //pegar quantidade de alunos que interagiram com esse professor.
+    // pegar quantidade de grupos que esse professor tem.
+    //pegar quantidade de quests que esse professor publicou.
+    const teacherGroups = await adminDb
+      .collection(GROUPS)
+      .where("teacherId", "==", teacherId);
+    const groups = await manyDocumentsOrErrorP<Group>(teacherGroups.get());
+    const groupPlayersIds = groups.flatMap((group) => {
+      return group.players;
+    });
+    console.log(groupPlayersIds);
+    let playerIds: string[] = [];
+    groupPlayersIds.map((id) => {
+      console.log("id dentro do map " + id)
+      if (!arrayContains(playerIds, [id])) {
+        playerIds.push(id);
+      } else {
+      }
+    });
+    return playerIds.length; 
   }
   async getPendingInvites(teacherId: string) {
     const invitation = await adminDb

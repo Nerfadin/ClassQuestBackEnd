@@ -27,7 +27,7 @@ let HouseFirebaseAdapter = class HouseFirebaseAdapter {
         })
             .then((snapshot) => {
             snapshot.set({ houseid: snapshot.id }, { merge: true });
-            return firestoreUtils_1.oneDocumentP(app_1.adminDb.collection(exports.HOUSES).doc(snapshot.id).get());
+            return (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb.collection(exports.HOUSES).doc(snapshot.id).get());
         });
         return house;
     }
@@ -35,7 +35,7 @@ let HouseFirebaseAdapter = class HouseFirebaseAdapter {
         app_1.adminDb.collection(exports.HOUSES).doc(houseId).delete();
     }
     async getHouse(playerId) {
-        const house = await firestoreUtils_1.manyDocumentsOrErrorP(app_1.adminDb.collection(exports.HOUSES).where("ownerPlayerId", "==", playerId).get());
+        const house = await (0, firestoreUtils_1.manyDocumentsOrErrorP)(app_1.adminDb.collection(exports.HOUSES).where("ownerPlayerId", "==", playerId).get());
         return house[0];
     }
     async hasHouse(playerId) {
@@ -71,7 +71,7 @@ let HouseFirebaseAdapter = class HouseFirebaseAdapter {
     }
 };
 HouseFirebaseAdapter = __decorate([
-    tsyringe_1.Singleton()
+    (0, tsyringe_1.Singleton)()
 ], HouseFirebaseAdapter);
 exports.HouseFirebaseAdapter = HouseFirebaseAdapter;
 //# sourceMappingURL=HousingSystemAdapter.js.map

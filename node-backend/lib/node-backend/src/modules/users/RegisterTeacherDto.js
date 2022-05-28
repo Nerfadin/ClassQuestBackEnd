@@ -14,33 +14,33 @@ const class_validator_1 = require("class-validator");
 class RegisterTeacherDto {
 }
 __decorate([
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.Length(3),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.Length)(3),
     __metadata("design:type", String)
 ], RegisterTeacherDto.prototype, "nome", void 0);
 __decorate([
-    class_validator_1.IsOptional(),
-    class_validator_1.IsString(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], RegisterTeacherDto.prototype, "institution", void 0);
 __decorate([
-    class_validator_1.IsOptional(),
-    class_validator_1.IsString(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], RegisterTeacherDto.prototype, "token", void 0);
 __decorate([
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.IsPhoneNumber('BR'),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsPhoneNumber)('BR'),
     __metadata("design:type", String)
 ], RegisterTeacherDto.prototype, "telefone", void 0);
 __decorate([
-    class_validator_1.IsEmail(),
-    class_validator_1.IsNotEmpty(),
+    (0, class_validator_1.IsEmail)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], RegisterTeacherDto.prototype, "email", void 0);
 __decorate([
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.IsString(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], RegisterTeacherDto.prototype, "password", void 0);
 exports.RegisterTeacherDto = RegisterTeacherDto;

@@ -5,10 +5,10 @@ const errorUtils_1 = require("./errorUtils");
 const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
 const validateDto = (c) => async (values) => {
-    const dtoClass = class_transformer_1.plainToClass(c, values, {
+    const dtoClass = (0, class_transformer_1.plainToClass)(c, values, {
         excludeExtraneousValues: true,
     });
-    const errors = await class_validator_1.validate(dtoClass, {
+    const errors = await (0, class_validator_1.validate)(dtoClass, {
         whitelist: true,
         forbidUnknownValues: true,
     });

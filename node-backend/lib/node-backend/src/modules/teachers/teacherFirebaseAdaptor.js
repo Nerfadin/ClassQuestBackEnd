@@ -13,7 +13,7 @@ class TeacherFirebaseAdaptor {
         const teacherQuerry = await app_1.adminDb
             .collection(exports.TEACHERS)
             .where("email", "==", email);
-        const teacher = await firestoreUtils_1.manyDocumentsOrErrorP(teacherQuerry.get());
+        const teacher = await (0, firestoreUtils_1.manyDocumentsOrErrorP)(teacherQuerry.get());
         return teacher.flatMap((t) => {
             return t;
         });
@@ -24,14 +24,35 @@ class TeacherFirebaseAdaptor {
         }, { merge: true });
         return teacher;
     }
-    async createTeacher(teacherId) {
+    async getTeacherStatistics(teacherId) {
+        //pegar quantidade de alunos que interagiram com esse professor.
+        // pegar quantidade de grupos que esse professor tem.
+        //pegar quantidade de quests que esse professor publicou.
+        const teacherGroups = await app_1.adminDb
+            .collection(GroupFirebaseAdaptor_1.GROUPS)
+            .where("teacherId", "==", teacherId);
+        const groups = await (0, firestoreUtils_1.manyDocumentsOrErrorP)(teacherGroups.get());
+        const groupPlayersIds = groups.flatMap((group) => {
+            return group.players;
+        });
+        console.log(groupPlayersIds);
+        let playerIds = [];
+        groupPlayersIds.map((id) => {
+            console.log("id dentro do map " + id);
+            if (!(0, class_validator_1.arrayContains)(playerIds, [id])) {
+                playerIds.push(id);
+            }
+            else {
+            }
+        });
+        return playerIds.length;
     }
     async getPendingInvites(teacherId) {
         const invitation = await app_1.adminDb
             .collection(InstitutionFirestoreAdaptor_1.INSTITUTIONINVITATIONS)
             .where("teacherId", "==", teacherId)
             .where("type", "==", "enter_institution");
-        firestoreUtils_1.manyDocumentsOrErrorP(invitation.get());
+        (0, firestoreUtils_1.manyDocumentsOrErrorP)(invitation.get());
     }
     async acceptInstitutionInvite(teacherId, institutionId) {
         const acceptedInvitation = await app_1.adminDb
@@ -46,14 +67,14 @@ class TeacherFirebaseAdaptor {
         const teacherGroups = await app_1.adminDb
             .collection(GroupFirebaseAdaptor_1.GROUPS)
             .where("teacherId", "==", teacherId);
-        const groups = await firestoreUtils_1.manyDocumentsOrErrorP(teacherGroups.get());
+        const groups = await (0, firestoreUtils_1.manyDocumentsOrErrorP)(teacherGroups.get());
         const groupPlayersIds = groups.flatMap((group) => {
             return group.players;
         });
         let playerIds = [];
         groupPlayersIds.map((id) => {
             console.log("id dentro do map " + id);
-            if (!class_validator_1.arrayContains(playerIds, [id])) {
+            if (!(0, class_validator_1.arrayContains)(playerIds, [id])) {
                 playerIds.push(id);
             }
             else {
@@ -70,22 +91,22 @@ class TeacherFirebaseAdaptor {
         return groupsCount;
     }
     getTeacher(teacherId) {
-        const teacher = firestoreUtils_1.oneDocumentP(app_1.adminDb.collection(exports.TEACHERS).doc(teacherId).get());
+        const teacher = (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb.collection(exports.TEACHERS).doc(teacherId).get());
         return teacher;
     }
     async getTeacherGroups(teacherId) {
-        const groups = await firestoreUtils_1.manyDocumentsOrErrorP(app_1.adminDb.collection(GroupFirebaseAdaptor_1.GROUPS).where("teacherId", "==", teacherId).get());
+        const groups = await (0, firestoreUtils_1.manyDocumentsOrErrorP)(app_1.adminDb.collection(GroupFirebaseAdaptor_1.GROUPS).where("teacherId", "==", teacherId).get());
         return groups;
     }
     async findTeacherInstitutionsIds(teacherId) {
-        const teacher = await firestoreUtils_1.oneDocumentP(app_1.adminDb.collection(exports.TEACHERS).doc(teacherId).get());
+        const teacher = await (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb.collection(exports.TEACHERS).doc(teacherId).get());
         teacher.institutionIds.map((Id) => {
             return Id;
         });
     }
     async getTeacherInstitutionsIds(teacherId) {
         console.log("teacher Id: " + teacherId);
-        const teacher = await firestoreUtils_1.oneDocumentP(app_1.adminDb.collection(exports.TEACHERS).doc(teacherId).get());
+        const teacher = await (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb.collection(exports.TEACHERS).doc(teacherId).get());
         const teacherInstitutionIds = teacher.institutionIds;
         console.log("teacherInstitutionsIds " + teacherInstitutionIds);
         const institutionsPromisse = teacherInstitutionIds.map(async (id) => {
@@ -101,7 +122,7 @@ class TeacherFirebaseAdaptor {
         const teachersSnapshot = await app_1.adminDb
             .collection(GroupFirebaseAdaptor_1.GROUPS)
             .where("teacherId", "==", teacherId);
-        return firestoreUtils_1.manyDocumentsOrErrorP(teachersSnapshot.get());
+        return (0, firestoreUtils_1.manyDocumentsOrErrorP)(teachersSnapshot.get());
     }
 }
 exports.TeacherFirebaseAdaptor = TeacherFirebaseAdaptor;

@@ -26,6 +26,7 @@ export class InstitutionMigrationAdapter {
       }) 
       return await adminDb.collection(INSTITUTIONS).doc(institutionIds[0]).get();      
     }
+    
     addInstitutionOwner(institutionOwner: string, institution: string) {
       adminDb.collection(INSTITUTIONS).doc(institution).set({
         owner: institutionOwner

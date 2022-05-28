@@ -16,7 +16,7 @@ exports.PLAYER_INVENTORY = "playerInventory";
 let PlayerFirebaseAdapter = class PlayerFirebaseAdapter {
     getPlayerStats(playerId) {
         const playerStatsSnap = app_1.adminDb.collection(STATS).doc(playerId).get();
-        return firestoreUtils_1.oneDocumentP(playerStatsSnap);
+        return (0, firestoreUtils_1.oneDocumentP)(playerStatsSnap);
     }
     savePlayerStats(playerId, playerStats) {
         return app_1.adminDb.collection(STATS).doc(playerId).set({ playerStats });
@@ -66,11 +66,11 @@ let PlayerFirebaseAdapter = class PlayerFirebaseAdapter {
         return inventoryUpdated;
     }
     getPlayerInventory(playerId) {
-        return firestoreUtils_1.oneDocumentP(app_1.adminDb.collection(exports.PLAYER_INVENTORY).doc(playerId).get());
+        return (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb.collection(exports.PLAYER_INVENTORY).doc(playerId).get());
     }
 };
 PlayerFirebaseAdapter = __decorate([
-    tsyringe_1.Singleton()
+    (0, tsyringe_1.Singleton)()
 ], PlayerFirebaseAdapter);
 exports.PlayerFirebaseAdapter = PlayerFirebaseAdapter;
 //# sourceMappingURL=PlayerFirebaseAdapter.js.map

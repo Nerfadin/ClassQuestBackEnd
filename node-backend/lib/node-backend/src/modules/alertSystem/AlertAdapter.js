@@ -8,13 +8,13 @@ exports.ALERTCONFIG = "alertConfig";
 exports.CONFIG = "Config";
 class AlertFirebaseAdapter {
     getAlertConfig() {
-        return firestoreUtils_1.oneDocumentP(app_1.adminDb
+        return (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb
             .collection(exports.CONFIG)
             .doc(exports.ALERTCONFIG)
             .get());
     }
     async fetchActiveAlerts() {
-        return firestoreUtils_1.manyDocuments(await app_1.adminDb
+        return (0, firestoreUtils_1.manyDocuments)(await app_1.adminDb
             .collection(exports.ALERTS)
             .get());
     }

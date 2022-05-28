@@ -36,7 +36,7 @@ let AuthenticationHttpAdaptor = class AuthenticationHttpAdaptor {
     }
     register(registerDto = {}) {
         const register = (() => {
-            if (AuthenticationService_1.isNonAnonymousRegister(registerDto)) {
+            if ((0, AuthenticationService_1.isNonAnonymousRegister)(registerDto)) {
                 return {
                     email: registerDto.email,
                     password: registerDto.password,
@@ -68,12 +68,12 @@ let AuthenticationHttpAdaptor = class AuthenticationHttpAdaptor {
     }
 };
 AuthenticationHttpAdaptor = __decorate([
-    tsyringe_1.Singleton()
+    (0, tsyringe_1.Singleton)()
 ], AuthenticationHttpAdaptor);
 exports.AuthenticationHttpAdaptor = AuthenticationHttpAdaptor;
 function catchAxiosError(err) {
     var _a, _b, _c, _d, _e, _f, _g, _h, _j;
-    if (axios_2.isAxiosError(err)) {
+    if ((0, axios_2.isAxiosError)(err)) {
         throw new errorUtils_1.AuthorizationError({
             statusCode: (_c = (_b = (_a = err.response) === null || _a === void 0 ? void 0 : _a.data) === null || _b === void 0 ? void 0 : _b.error) === null || _c === void 0 ? void 0 : _c.code,
             message: (_f = (_e = (_d = err.response) === null || _d === void 0 ? void 0 : _d.data) === null || _e === void 0 ? void 0 : _e.error) === null || _f === void 0 ? void 0 : _f.message,

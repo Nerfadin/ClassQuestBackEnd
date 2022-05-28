@@ -17,17 +17,17 @@ const InstitutionFirestoreAdaptor_1 = require("../../modules/institutions/Instit
 //quest Id for testing: DOgB9Z
 let QuestMigrator = class QuestMigrator {
     async getAllQuests() {
-        const quests = await firestoreUtils_1.manyDocumentsOrErrorP(app_1.adminDb.collection("quests").get());
+        const quests = await (0, firestoreUtils_1.manyDocumentsOrErrorP)(app_1.adminDb.collection("quests").get());
         console.log(quests.length);
         return quests;
     }
     async getAllQuestsFromTeacher(teacherId) {
-        const questsFromTeacher = await firestoreUtils_1.manyDocumentsOrErrorP(app_1.adminDb.collection("quests").where("teacherId", "==", teacherId).get());
+        const questsFromTeacher = await (0, firestoreUtils_1.manyDocumentsOrErrorP)(app_1.adminDb.collection("quests").where("teacherId", "==", teacherId).get());
         console.log(questsFromTeacher.length);
         return questsFromTeacher;
     }
     async getTeacher(teacherId) {
-        firestoreUtils_1.oneDocumentP(app_1.adminDb.collection("teachers").doc(teacherId).get());
+        (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb.collection("teachers").doc(teacherId).get());
     }
     async migrateAllQuests() {
         const allquests = await this.getAllQuests();
@@ -58,17 +58,17 @@ let QuestMigrator = class QuestMigrator {
         }, { merge: true });
     }
     async getOneQuestAndAddTeacherField(questId) {
-        const quest = await firestoreUtils_1.oneDocumentP(app_1.adminDb.collection("quests").doc(questId).get());
+        const quest = await (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb.collection("quests").doc(questId).get());
         console.log(quest.title);
-        const teacher = await firestoreUtils_1.oneDocumentP(app_1.adminDb.collection("teachers").doc(quest.teacherId).get());
+        const teacher = await (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb.collection("teachers").doc(quest.teacherId).get());
         await app_1.adminDb.collection("quests").doc(questId).set({
             teacherName: teacher.nome,
         }, { merge: true });
-        return await firestoreUtils_1.oneDocumentP(app_1.adminDb.collection("quests").doc(questId).get());
+        return await (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb.collection("quests").doc(questId).get());
     }
 };
 QuestMigrator = __decorate([
-    tsyringe_1.Singleton()
+    (0, tsyringe_1.Singleton)()
 ], QuestMigrator);
 exports.QuestMigrator = QuestMigrator;
 //# sourceMappingURL=questMigrationAdapter.js.map

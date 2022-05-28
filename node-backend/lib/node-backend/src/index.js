@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -40,23 +44,23 @@ const EmailService_1 = require("./modules/email/EmailService");
 //   "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"
 // );
 const env = functions.config();
-const client = algoliasearch_1.default(env.algolia.appid, env.algolia.apikey);
+const client = (0, algoliasearch_1.default)(env.algolia.appid, env.algolia.apikey);
 const questsSearch = client.initIndex("teacher_quests_search");
 exports.api = functions.https.onRequest(express_1.default);
 exports.dev = functions.https.onRequest(index_dev_1.default);
 exports.updateShop = functions.pubsub
     .schedule("0 */3 * * *")
     .onRun((ctx) => {
-    const refreshIn = dayjs_1.default(ctx.timestamp).add(3, "hour").toDate();
-    const shopService = tsyringe_1.build(ShopService_1.ShopService);
-    return express_helpers_1.reportFailureFunctions(shopService.refreshShop(refreshIn));
+    const refreshIn = (0, dayjs_1.default)(ctx.timestamp).add(3, "hour").toDate();
+    const shopService = (0, tsyringe_1.build)(ShopService_1.ShopService);
+    return (0, express_helpers_1.reportFailureFunctions)(shopService.refreshShop(refreshIn));
 });
 // roda todo dia às meia noite
 exports.endFreeTrials = functions.pubsub
     .schedule("0 0 * * *")
     .onRun(async (ctx) => {
-    const start = dayjs_1.default().toDate();
-    const end = dayjs_1.default().subtract(25, "hour").toDate(); // get all tasks from the last 24 hrs
+    const start = (0, dayjs_1.default)().toDate();
+    const end = (0, dayjs_1.default)().subtract(25, "hour").toDate(); // get all tasks from the last 24 hrs
     const tasks = await app_1.adminDb
         .collection("scheduled_tasks")
         .where("dueDate", ">", start)
@@ -306,16 +310,16 @@ async function getChildren(folderId) {
 exports.registerEmail = functions.firestore
     .document("teachers/{teacherId}")
     .onCreate(async (snap, ctx) => {
-    const emailService = tsyringe_1.build(EmailService_1.EmailService);
+    const emailService = (0, tsyringe_1.build)(EmailService_1.EmailService);
     const res = emailService.sendTeachersRegisterEmail(snap.data());
-    return express_helpers_1.reportFailureFunctions(res);
+    return (0, express_helpers_1.reportFailureFunctions)(res);
 });
 exports.sendEmail = functions.firestore
     .document("form/{submissionId}")
     .onCreate(async (snap, ctx) => {
     const data = snap.data();
-    const emailService = tsyringe_1.build(EmailService_1.EmailService);
+    const emailService = (0, tsyringe_1.build)(EmailService_1.EmailService);
     const res = emailService.sendWebsiteContactformEmail(data);
-    return express_helpers_1.reportFailureFunctions(res);
+    return (0, express_helpers_1.reportFailureFunctions)(res);
 });
 //# sourceMappingURL=index.js.map

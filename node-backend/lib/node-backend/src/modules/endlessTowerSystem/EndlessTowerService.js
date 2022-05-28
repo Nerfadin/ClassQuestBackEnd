@@ -30,8 +30,8 @@ let TowerService = class TowerService {
     }
 };
 TowerService = __decorate([
-    tsyringe_1.Singleton(),
-    __param(0, tsyringe_1.Inject(() => EndlessTowerAdapter_1.TowerFirebaseAdapter)),
+    (0, tsyringe_1.Singleton)(),
+    __param(0, (0, tsyringe_1.Inject)(() => EndlessTowerAdapter_1.TowerFirebaseAdapter)),
     __metadata("design:paramtypes", [EndlessTowerAdapter_1.TowerFirebaseAdapter])
 ], TowerService);
 exports.TowerService = TowerService;

@@ -12,19 +12,17 @@ import {
   InstitutionRoles,
   UpdateInstitutionDto,
 } from "./CreateInstitutionDto";
-import {QUESTS} from "../quests/QuestFirebaseAdaptor";
+import { QUESTS } from "../quests/QuestFirebaseAdaptor";
 import { InviteTeachersDto } from "./InviteTeachersDto";
 import { Teacher } from "@interfaces/teacher";
 import { BadRequestError } from "../../utils/errorUtils";
 import { arrayContains } from "class-validator";
-import { Group } from "@interfaces/groups";
+export const INSTITUTIONHASPLAYER = "institution_Has_Player";
 export const INSTITUTIONS_HAS_TEACHERS = "institutions_has_teachers";
 export const INSTITUTIONS = "institutions";
 export const INSTITUTION_SECURITY = "institution_security";
 export const INSTITUTION_HAS_QUESTS = "institutions_has_quests";
-
 export const INSTITUTIONINVITATIONS = "institutionInvitations";
-export const GROUPS = "groups";
 type TeacherInstitutionPlan = {
   groups: number;
   id: string;
@@ -51,7 +49,7 @@ export interface InstitutionInfo {
 }
 @Singleton()
 export class InstitutionFirestoreAdaptor {
-  constructor() {}
+  constructor() { }
   //pega o plano da instituição
   getTeacherInstitutionPlan(teacherId: string, institutionId: string) {
     return oneDocumentP<TeacherInstitutionPlan>(
@@ -87,6 +85,7 @@ export class InstitutionFirestoreAdaptor {
     console.log(institution);
     return institution;
   }
+
   async updateInstitution(updateInstitutionDto: UpdateInstitutionDto) {
     return await adminDb
       .collection(INSTITUTIONS)
@@ -108,7 +107,12 @@ export class InstitutionFirestoreAdaptor {
         updated: true,
       });
   }
-
+  async asignInstitutionOwner(institutionId: string, ownerId: string) {
+    const institution = await adminDb.collection(INSTITUTIONS).doc(institutionId).set({
+      ownerId: ownerId,
+    }, {merge:true});
+    return institution;
+  }
   async getAllInstitutionTeachers(institutionId: string) {
     const teachers = adminDb
       .collection(TEACHERS)
@@ -129,6 +133,9 @@ export class InstitutionFirestoreAdaptor {
     })
     console.log("teacherIds: " + teachersIds)
     return teachersIds */
+  }
+  async addRoleToInstitution(userId: string, institutionId: string) {
+
   }
   async getAlTeacherInstitutionIds(institutionId: string) {
     const institutionTeachersSnapShot = await adminDb
@@ -174,9 +181,9 @@ export class InstitutionFirestoreAdaptor {
     return institution;
   }
 
-  
-  async addPlayerToInstitution (playerId: string, institutionId: string) {
-    
+
+  async addPlayerToInstitution(playerId: string, institutionId: string) {
+
   }
   //Usa a coleção institutionInvitation para armazenar o invite quem faz a busca dos invites é o teacherService
   async inviteSingleTeacherToInstitution(
@@ -213,7 +220,6 @@ export class InstitutionFirestoreAdaptor {
       .update({
         institutionId: firestore.FieldValue.arrayUnion(body.institutionId),
       });
-    console.log("createInstitutionHasTeacherDocument");
     await adminDb
       .collection(INSTITUTIONS_HAS_TEACHERS)
       .doc(`${body.teacher.id}_${body.institutionId}`)
@@ -226,7 +232,9 @@ export class InstitutionFirestoreAdaptor {
           role: body.role,
           teacherId: body.teacherId,
         },
-        { merge: true }
+        {
+          merge: true
+        }
       );
     return teacherUpdated;
   }
@@ -254,13 +262,12 @@ export class InstitutionFirestoreAdaptor {
       return true;
     }
   }
-  async AddInstitutionToQuest(intitutionIds: string[], questId: string){
+  async AddInstitutionToQuest(intitutionIds: string[], questId: string) {
     intitutionIds.map((institutionId: string) => {
-      adminDb.collection(QUESTS).doc(questId).set ({
-        institutions: firestore.FieldValue.arrayUnion(institutionId)        
-      })        
+      adminDb.collection(QUESTS).doc(questId).set({
+        institutions: firestore.FieldValue.arrayUnion(institutionId)
+      })
     })
-    
   }
   //Se o professor já estiver na instituição retorna verdadeiro
   async checkIfTeacherIsInInstitution(
@@ -282,32 +289,7 @@ export class InstitutionFirestoreAdaptor {
       .where("invitationStatus", "==", "pending");
     return manyDocumentsOrErrorP<InviteTeachersDto>(invitations.get());
   }
-  async getTeacherStatistics(teacherId: string) {
-    //pegar quantidade de alunos que interagiram com esse professor.
-    // pegar quantidade de grupos que esse professor tem.
-    //pegar quantidade de quests que esse professor publicou.
-   
-    const teacherGroups = await adminDb
-      .collection(GROUPS)
-      .where("teacherId", "==", teacherId);
-    const groups = await manyDocumentsOrErrorP<Group>(teacherGroups.get());
-    const groupPlayersIds = groups.flatMap((group) => {
-      return group.players;
-    });
-    console.log(groupPlayersIds);
-    let playerIds: string[] = [];
-    groupPlayersIds.map((id) => {
-      console.log("id dentro do map " + id)
-      if (!arrayContains(playerIds, [id])) {
 
-        playerIds.push(id);
-      }else {
-        console.log("já tinha o id")
-      }
-    });
-    return playerIds.length;
-
-  }
   async setTeacherPlan(
     teacherId: string,
     institutionId: string,

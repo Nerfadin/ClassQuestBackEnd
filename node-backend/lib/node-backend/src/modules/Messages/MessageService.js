@@ -46,8 +46,8 @@ let MessageService = class MessageService {
     }
 };
 MessageService = __decorate([
-    tsyringe_1.Singleton(),
-    __param(0, tsyringe_1.Inject(() => MessageFirebaseAdapter_1.MessageFireBaseAdapter)),
+    (0, tsyringe_1.Singleton)(),
+    __param(0, (0, tsyringe_1.Inject)(() => MessageFirebaseAdapter_1.MessageFireBaseAdapter)),
     __metadata("design:paramtypes", [MessageFirebaseAdapter_1.MessageFireBaseAdapter])
 ], MessageService);
 exports.MessageService = MessageService;

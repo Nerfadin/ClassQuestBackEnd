@@ -13,7 +13,7 @@ class GameVersionFirebaseAdapter {
                 details: err,
             }) : err;
         });
-        return firestoreUtils_1.oneDocumentP(gameVersionSnapshot);
+        return (0, firestoreUtils_1.oneDocumentP)(gameVersionSnapshot);
     }
 }
 exports.GameVersionFirebaseAdapter = GameVersionFirebaseAdapter;

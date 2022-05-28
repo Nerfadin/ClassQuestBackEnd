@@ -1,1 +1,1 @@
-{"version":3,"file":"InviteTeachersDto.js","sourceRoot":"","sources":["../../../../../src/modules/institutions/InviteTeachersDto.ts"],"names":[],"mappings":";;;;;;;;;;;;AACA,qDAA6C;AAC7C,MAAa,iBAAiB;CAY7B;AAVC;IADC,4BAAU,EAAE;;qDACM;AAEnB;IADC,4BAAU,EAAE;;wDACS;AAJxB,8CAYC"}
+{"version":3,"file":"InviteTeachersDto.js","sourceRoot":"","sources":["../../../../../src/modules/institutions/InviteTeachersDto.ts"],"names":[],"mappings":";;;;;;;;;;;;AACA,qDAA6C;AAC7C,MAAa,iBAAiB;CAY7B;AAVC;IADC,IAAA,4BAAU,GAAE;;qDACM;AAEnB;IADC,IAAA,4BAAU,GAAE;;wDACS;AAJxB,8CAYC"}

@@ -18,7 +18,7 @@ let ReportFirebaseAdapter = class ReportFirebaseAdapter {
     }
 };
 ReportFirebaseAdapter = __decorate([
-    tsyringe_1.singleton()
+    (0, tsyringe_1.singleton)()
 ], ReportFirebaseAdapter);
 exports.ReportFirebaseAdapter = ReportFirebaseAdapter;
 //# sourceMappingURL=ReportFirebaseAdapter.js.map

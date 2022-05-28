@@ -17,7 +17,7 @@ exports.QUESTIONLIST = "towerQuestionList";
 exports.SECURITY = "security";
 let TowerFirebaseAdapter = class TowerFirebaseAdapter {
     getTower(towerPin) {
-        return firestoreUtils_1.oneDocumentP(app_1.adminDb.collection(exports.TOWER).doc(towerPin).get());
+        return (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb.collection(exports.TOWER).doc(towerPin).get());
     }
     createTower(body) {
         const tower = app_1.adminDb
@@ -83,7 +83,7 @@ let TowerFirebaseAdapter = class TowerFirebaseAdapter {
     }
 };
 TowerFirebaseAdapter = __decorate([
-    tsyringe_1.Singleton()
+    (0, tsyringe_1.Singleton)()
 ], TowerFirebaseAdapter);
 exports.TowerFirebaseAdapter = TowerFirebaseAdapter;
 //# sourceMappingURL=EndlessTowerAdapter.js.map

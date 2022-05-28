@@ -38,7 +38,6 @@ export class AuthenticationService {
   async getDeviceId(playerId: string){
     return this.deviceIdAdapter.getDeviceCloudId(playerId);
   }
-  
   async registerAnonymously(name: string) {
     const register = await this.authenticationDao.register();
     await this.userService.savePlayerStats(register.localId, {
@@ -68,7 +67,24 @@ export class AuthenticationService {
     });
     return register;
   }
-
+  async updateCustomClaims(){
+    
+  }
+  async registerPlayerWithInstitution(registerDto: RegisterDtoStepOne, institutionID: string) {
+    const register = await this.authenticationDao.register(registerDto);
+    await this.userService.savePlayerStats(register.localId, {
+      completedQuests: {},
+      completedQuestsCount: 0,
+    });    
+    await this.userService.savePlayer(register.localId, {
+      ...playerBaseStats,
+      email: registerDto.email,
+      firstName: registerDto.firstName,
+      lastName: registerDto.lastName,
+      characterCreated: false,
+    });
+    return register;
+  }
   registerStepTwo(registerDto: RegisterDtoStepTwo, userId: string) {
     return this.userService
       .savePlayer(userId, {

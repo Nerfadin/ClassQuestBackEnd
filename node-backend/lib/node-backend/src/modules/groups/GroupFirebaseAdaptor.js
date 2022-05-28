@@ -41,8 +41,8 @@ let GroupFirebaseAdaptor = class GroupFirebaseAdaptor {
             .where("groupId", "==", groupId)
             .where("dataExpiracao", "==", null);
         const [a, b] = await Promise.all([
-            firestoreUtils_1.manyDocumentsOrErrorP(unexpiredQuests.get()),
-            firestoreUtils_1.manyDocumentsOrErrorP(questsWithoutExpirationDate.get()),
+            (0, firestoreUtils_1.manyDocumentsOrErrorP)(unexpiredQuests.get()),
+            (0, firestoreUtils_1.manyDocumentsOrErrorP)(questsWithoutExpirationDate.get()),
         ]);
         return b.concat(a).map(questFirestoreToQuestDto_1.questInGroupFirestoreToQuestInGroupDto);
     }
@@ -63,7 +63,7 @@ let GroupFirebaseAdaptor = class GroupFirebaseAdaptor {
         return group;
     }
     getGroup(id) {
-        return firestoreUtils_1.oneDocumentP(app_1.adminDb.collection(exports.GROUPS).doc(id).get()).catch(async (err) => {
+        return (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb.collection(exports.GROUPS).doc(id).get()).catch(async (err) => {
             throw err instanceof errorUtils_1.EntityNotFoundError
                 ? new errorUtils_1.EntityNotFoundError({
                     type: "group_not_found",
@@ -76,7 +76,7 @@ let GroupFirebaseAdaptor = class GroupFirebaseAdaptor {
     // gets a list of groups, ignores undefined groups
     async getGroups(ids) {
         const docRefs = ids.map((id) => app_1.adminDb.collection(exports.GROUPS).doc(id));
-        const firestoreGroups = await Promise.all(docRefs.map((d) => firestoreUtils_1.oneDocumentP(d.get()).catch((_err) => undefined)));
+        const firestoreGroups = await Promise.all(docRefs.map((d) => (0, firestoreUtils_1.oneDocumentP)(d.get()).catch((_err) => undefined)));
         const existingGroups = firestoreGroups.filter((group) => !!group);
         return existingGroups;
     }
@@ -86,7 +86,7 @@ let GroupFirebaseAdaptor = class GroupFirebaseAdaptor {
             .doc(id)
             .set({
             id,
-            pin: generatePin_1.generatePin(),
+            pin: (0, generatePin_1.generatePin)(),
             teacher: app_1.adminDb.collection(exports.TEACHERS).doc(id),
             name,
             description: "",
@@ -96,7 +96,7 @@ let GroupFirebaseAdaptor = class GroupFirebaseAdaptor {
     }
 };
 GroupFirebaseAdaptor = __decorate([
-    tsyringe_1.Singleton()
+    (0, tsyringe_1.Singleton)()
 ], GroupFirebaseAdaptor);
 exports.GroupFirebaseAdaptor = GroupFirebaseAdaptor;
 //# sourceMappingURL=GroupFirebaseAdaptor.js.map
