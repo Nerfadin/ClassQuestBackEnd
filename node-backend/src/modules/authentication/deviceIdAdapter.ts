@@ -1,5 +1,4 @@
 import { adminDb } from "../../app";
-
 import { LoginPayload } from "./models/LoginDto";
 import { generateDeviceId } from "../../utils/generatePin";
 import { oneDocumentP } from "../../utils/firestoreUtils";

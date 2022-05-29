@@ -70,6 +70,9 @@ export class AuthenticationService {
   async updateCustomClaims(){
     
   }
+  async RegisterTeacher(){
+    
+  }
   async registerPlayerWithInstitution(registerDto: RegisterDtoStepOne, institutionID: string) {
     const register = await this.authenticationDao.register(registerDto);
     await this.userService.savePlayerStats(register.localId, {

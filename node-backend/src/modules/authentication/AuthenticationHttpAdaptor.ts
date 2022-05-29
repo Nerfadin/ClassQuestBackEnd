@@ -1,11 +1,14 @@
 import { LoginDto, LoginPayload } from "./models/LoginDto";
 import axios from "axios";
 import { isAxiosError } from "../../utils/axios";
-import { RegisterPayload, RegisterDtoStepOne } from "./models/RegisterDto";
+import { RegisterPayload, RegisterDtoStepOne, RegisterTeacherDto } from "./models/RegisterDto";
 import { RefreshTokenDto, RefreshTokenPayload } from "./models/RefreshTokenDto";
 import { AuthorizationError } from "../../utils/errorUtils";
 import { Singleton } from "../../utils/tsyringe";
 import { isNonAnonymousRegister } from "./AuthenticationService";
+import { adminDb } from "src/app";
+import { Teacher } from "@interfaces/teacher";
+
 // import certificate from "../../../../packages/utils/classquest-2bb7d-b9a69fcf5d24.json";}
 export const API_KEY = "AIzaSyDNDx9iWkvP3-uIjEssxkV7FLZbu0NotE8";
 @Singleton()
@@ -48,7 +51,18 @@ export class AuthenticationHttpAdaptor {
       .catch(catchAxiosError)
       .then((res) => res.data);
   }
-  
+  async registerBatchTeachers(register: RegisterTeacherDto, user: string) {
+
+    await adminDb.collection("teachers")
+          .doc(user)
+          .set({
+            email: register.email,
+            institutions: [],
+            nome: register.nome,
+            institutionIds: [],
+            telefone: register.telefone,
+          } as Omit<Teacher, "id">)
+  }
   registerAnonymously() {
     return axios
       .post<RegisterPayload>(

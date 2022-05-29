@@ -26,6 +26,7 @@
     "dayjs": "^1.10.4",
     "express": "^4.17.1",
     "firebase-admin": "^9.2.0",
+    "firebase-auth": "^0.1.2",
     "firebase-functions": "^3.11.0",
     "multer": "^1.4.4",
     "nodemailer": "^6.4.10",
