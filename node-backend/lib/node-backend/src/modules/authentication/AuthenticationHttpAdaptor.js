@@ -50,20 +50,18 @@ let AuthenticationHttpAdaptor = class AuthenticationHttpAdaptor {
             .catch(catchAxiosError)
             .then((res) => res.data);
     }
-    registerTeacher(registerDto) {
+    registerTeacher(email, password) {
         const register = (() => {
-            if ((0, AuthenticationService_1.isNonAnonymousRegister)(registerDto)) {
+            if ((0, AuthenticationService_1.isNonAnonymousRegister)({ email, password })) {
                 return {
-                    email: registerDto.email,
-                    password: registerDto.password,
+                    email: email,
+                    password: password,
                 };
             }
             return {};
         })();
         return axios_1.default.post("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" +
-            exports.API_KEY, Object.assign(Object.assign({}, register), { returnSecureToken: true }))
-            .catch(catchAxiosError)
-            .then((res) => res.data);
+            exports.API_KEY, Object.assign(Object.assign({}, register), { returnSecureToken: true })).catch(catchAxiosError).then((res) => { return res.data; });
     }
     registerAnonymously() {
         return axios_1.default

@@ -10,14 +10,14 @@ exports.OwnerFirebaseAdapter = exports.OWNEDINSTITUTIONS = exports.OWNER = void 
 const app_1 = require("../../../app");
 const tsyringe_1 = require("../../../utils/tsyringe");
 const firebase_admin_1 = require("firebase-admin");
+const firestoreUtils_1 = require("../../../utils/firestoreUtils");
 exports.OWNER = "owner";
 exports.OWNEDINSTITUTIONS = "ownedInstitution";
+const InstitutionManagerAdapter_1 = require("../InstitutionManagerAdapter");
 let OwnerFirebaseAdapter = class OwnerFirebaseAdapter {
     async getOwnerInstitutions(ownerId) {
-        const ownedInstitutions = await app_1.adminDb.collection(exports.OWNER).doc(ownerId).collection(exports.OWNEDINSTITUTIONS).get();
-        return ownedInstitutions.docs.map((i) => {
-            return i.data;
-        });
+        const ownedInstitutions = await app_1.adminDb.collection(exports.OWNER).doc(ownerId).collection(exports.OWNEDINSTITUTIONS);
+        return (0, firestoreUtils_1.manyDocumentsOrErrorP)(ownedInstitutions.get());
     }
     async CreateOwner(owner) {
         const ownerId = await app_1.adminDb.collection(exports.OWNER).add(Object.assign(Object.assign({}, owner), { CreatedAt: firebase_admin_1.firestore.Timestamp.fromDate(new Date()), ownerBillingDate: firebase_admin_1.firestore.Timestamp.fromDate(new Date()) }));
@@ -38,6 +38,26 @@ let OwnerFirebaseAdapter = class OwnerFirebaseAdapter {
             institutionId: institutionId,
             ownerId: ownerId,
         });
+    }
+    async CreateSchool(schools) {
+        const ownerId = 'QHISBM5KryaXQHmPNc2I';
+        let createdSchools = [];
+        schools['data'].map(async (schoolDto) => {
+            const school = await app_1.adminDb.collection(InstitutionManagerAdapter_1.SCHOOLS).add({
+                "institutionType": "school",
+                "institutionName": schoolDto.name,
+                "institutionOwnerId": ownerId,
+                "institutionCity": schoolDto.city,
+                'ownerId': ownerId
+            });
+            await app_1.adminDb.collection(InstitutionManagerAdapter_1.SCHOOLS).doc(school.id).set({
+                "id": school.id
+            }, { merge: true });
+            const schoolCreated = await (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb.collection(InstitutionManagerAdapter_1.SCHOOLS).doc(school.id).get());
+            createdSchools.push(schoolCreated);
+        });
+        console.log(createdSchools.length);
+        return createdSchools;
     }
 };
 OwnerFirebaseAdapter = __decorate([

@@ -2,7 +2,6 @@ import { LoginDto, LoginPayload } from "./models/LoginDto";
 import axios from "axios";
 import { isAxiosError } from "../../utils/axios";
 import { RegisterPayload, RegisterDtoStepOne } from "./models/RegisterDto";
-import {RegisterTeacherDto} from '@interfaces/teacher';
 import { RefreshTokenDto, RefreshTokenPayload } from "./models/RefreshTokenDto";
 import { AuthorizationError } from "../../utils/errorUtils";
 import { Singleton } from "../../utils/tsyringe";
@@ -51,12 +50,12 @@ export class AuthenticationHttpAdaptor {
       .catch(catchAxiosError)
       .then((res) => res.data);
   }
-  registerTeacher(registerDto: RegisterTeacherDto) {
+  registerTeacher(email: string, password: string) {
     const register = (() => {
-      if (isNonAnonymousRegister(registerDto)) {
+      if (isNonAnonymousRegister({email, password})) {
         return {
-          email: registerDto.email,
-          password: registerDto.password,
+          email: email,
+          password: password,
         };
       }
       return {};
@@ -68,9 +67,7 @@ export class AuthenticationHttpAdaptor {
           ...register,
           returnSecureToken: true,
         }
-      )
-      .catch(catchAxiosError)
-      .then((res) => res.data);
+      ).catch(catchAxiosError).then((res) => {return res.data});
   }
   
   registerAnonymously() {

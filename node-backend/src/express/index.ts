@@ -7,6 +7,7 @@ import {
   verifyAuthenticated,
   recoverPassword
 } from "./express-helpers";
+import {TeacherCreationService} from '..//migration/createAccountsGoiana/TeacherCreation';
 import { build } from "../utils/tsyringe";
 import { InstitutionFacade } from "../modules/institutions/InstitutionFacade";
 import { ShopService } from "../modules/shop/ShopService";
@@ -51,11 +52,12 @@ return ownerService.CreateSchool(req.body);
 app.post('/auth/teacher/register', returnFailureOrSuccessExpress((req => {
   const registerTeacherDto = req.body;
   const authService = build(AuthenticationService);
-  return authService.RegisterTeacher(registerTeacherDto);
-  
- // return createAccountService.registerTeacher(registerTeacherDto);
-  return registerTeacherDto;
-})))
+  return authService.RegisterTeacher(registerTeacherDto.email, registerTeacherDto.password);
+  })))
+app.post('/admin/import/teachers', returnFailureOrSuccessExpress((req => {
+  const teacherCreationService = build(TeacherCreationService);
+  return teacherCreationService.createTeacher(req.body);
+})));
 /* ----------------- SUBJECTS ----------------- */
 
 app.post('/subjects/create', returnFailureOrSuccessExpress((req => {

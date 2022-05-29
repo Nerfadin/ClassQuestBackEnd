@@ -1,4 +1,4 @@
-import { Teacher } from "@interfaces/teacher";
+import { Teacher, TeacherImportDto } from "@interfaces/teacher";
 import {
   manyDocumentsOrErrorP,
   oneDocumentP,
@@ -11,7 +11,6 @@ import { INSTITUTIONINVITATIONS } from "../institutions/InstitutionFirestoreAdap
 import { arrayContains } from "class-validator";
 import { firestore } from "firebase-admin";
 export const TEACHERS = "teachers";
-import {RegisterTeacherDto} from '@interfaces/teacher';
 export class TeacherFirebaseAdaptor {
   async findTeacherByEmail(email: string) {
     const teacherQuerry = adminDb
@@ -28,8 +27,16 @@ export class TeacherFirebaseAdaptor {
     }, {merge: true})
     return teacher;
   }
-  async createTeacherDoc(RegisterTeacherDto: RegisterTeacherDto){
-
+  async createTeacherDocument (teacher: TeacherImportDto, teacherId: string){
+    adminDb.collection("teachers")
+    .doc(teacherId).
+    set({
+      email: teacher.email,
+      isOwned: true,
+      owner: ['GnsZj4Ywiwy56SIKdTUn'],
+      nome: teacher.name,
+      institutionIds: ['GnsZj4Ywiwy56SIKdTUn']
+    })
   }
   async getTeacherStatistics(teacherId: string) {
     //pegar quantidade de alunos que interagiram com esse professor.
@@ -42,10 +49,8 @@ export class TeacherFirebaseAdaptor {
     const groupPlayersIds = groups.flatMap((group) => {
       return group.players;
     });
-    console.log(groupPlayersIds);
     let playerIds: string[] = [];
     groupPlayersIds.map((id) => {
-      console.log("id dentro do map " + id)
       if (!arrayContains(playerIds, [id])) {
         playerIds.push(id);
       } else {

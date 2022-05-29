@@ -24,7 +24,16 @@ class TeacherFirebaseAdaptor {
         }, { merge: true });
         return teacher;
     }
-    async createTeacherDoc(RegisterTeacherDto) {
+    async createTeacherDocument(teacher, teacherId) {
+        app_1.adminDb.collection("teachers")
+            .doc(teacherId).
+            set({
+            email: teacher.email,
+            isOwned: true,
+            owner: ['GnsZj4Ywiwy56SIKdTUn'],
+            nome: teacher.name,
+            institutionIds: ['GnsZj4Ywiwy56SIKdTUn']
+        });
     }
     async getTeacherStatistics(teacherId) {
         //pegar quantidade de alunos que interagiram com esse professor.
@@ -37,10 +46,8 @@ class TeacherFirebaseAdaptor {
         const groupPlayersIds = groups.flatMap((group) => {
             return group.players;
         });
-        console.log(groupPlayersIds);
         let playerIds = [];
         groupPlayersIds.map((id) => {
-            console.log("id dentro do map " + id);
             if (!(0, class_validator_1.arrayContains)(playerIds, [id])) {
                 playerIds.push(id);
             }

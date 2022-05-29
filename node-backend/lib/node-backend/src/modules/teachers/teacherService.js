@@ -29,6 +29,9 @@ let TeacherService = class TeacherService {
     async getTeacher(teacherId) {
         return await this.teacherDao.getTeacher(teacherId);
     }
+    async createTeacherDocument(teacherDto, teacherId) {
+        await this.teacherDao.createTeacherDocument(teacherDto, teacherId);
+    }
     async getTeacherStatisctics(teacherId) {
         const groupCount = await this.teacherDao.getTeacherGroupsCount(teacherId);
         const studentsCount = await this.teacherDao.getTeacherPlayersIds(teacherId);

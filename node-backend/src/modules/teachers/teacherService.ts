@@ -1,6 +1,6 @@
 import {TeacherFirebaseAdaptor} from './teacherFirebaseAdaptor'
 import {Singleton, Inject} from '../../utils/tsyringe';
-import { TeacherInstitutionStatistics } from '@interfaces/teacher';
+import { TeacherImportDto, TeacherInstitutionStatistics } from '@interfaces/teacher';
 
 @Singleton()
 export class TeacherService {
@@ -18,6 +18,9 @@ export class TeacherService {
     }
      async getTeacher(teacherId: string){
         return await this.teacherDao.getTeacher(teacherId);
+    }
+    async createTeacherDocument(teacherDto: TeacherImportDto, teacherId: string){
+        await this.teacherDao.createTeacherDocument(teacherDto, teacherId);
     }
      async getTeacherStatisctics (teacherId: string){
         

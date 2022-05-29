@@ -43,7 +43,6 @@ export class InstitutionFacade {
      console.log(teachers)
      return Promise.all(teachers)
   */
- 
  }
   async AcceptTeacherInInstitution(body: InstitutionHasTeacherDto){
     await this.teacherService.acceptInstitutionInvite(body.teacherId,body.institutionId); //muda o status do convite pra acepted

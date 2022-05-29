@@ -67,9 +67,9 @@ let AuthenticationService = class AuthenticationService {
     }
     async updateCustomClaims() {
     }
-    async RegisterTeacher(registerTeacherDto) {
-        await this.authenticationDao.registerTeacher(registerTeacherDto).then(() => {
-        });
+    async RegisterTeacher(email, password) {
+        const teacher = await this.authenticationDao.registerTeacher(email, password);
+        return teacher;
     }
     async registerPlayerWithInstitution(registerDto, institutionID) {
         const register = await this.authenticationDao.register(registerDto);

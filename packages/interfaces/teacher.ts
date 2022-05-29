@@ -5,7 +5,7 @@ export type Teacher = {
   nome: string;
   email: string;
   materias?: {
-    [p: string] : string[]
+    [p: string]: string[]
   };
   points?: number,
   studentsCount?: number;
@@ -19,6 +19,14 @@ export type RegisterTeacherDto = Omit<Teacher, "id" | "institutionIds"> & {
   instituicao: string;
   institutionId?: string;
 };
+export type TeacherImportDto = {
+  name: string;
+  localId: string;
+  email: string;
+  escola: string;
+  password: string;
+
+}
 export type TeacherInstitutionStatistics = {
   id: string,
   groupsCount: number,

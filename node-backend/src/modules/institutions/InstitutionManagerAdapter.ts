@@ -3,7 +3,7 @@ import { Singleton } from "../../utils/tsyringe";
 import {adminDb} from '../../app';
 import {INSTITUTIONS} from './InstitutionFirestoreAdaptor';
 import { oneDocumentP } from "../../utils/firestoreUtils";
-import { CreateBatchedInstitutionsDto, CreateInstitutionDto, InstitutionInfo } from "./CreateInstitutionDto";
+import { CreateInstitutionDto, InstitutionInfo } from "./CreateInstitutionDto";
 export const SCHOOLS = 'schools';
 @Singleton()
 export class InstitutionManagerAdapter {
@@ -13,9 +13,7 @@ export class InstitutionManagerAdapter {
     const institutiondocument = await oneDocumentP<InstitutionInfo>(adminDb.collection(INSTITUTIONS).doc(institution.id).get());  
     return institutiondocument;    
   }
-  async createBatchedInstitutions(institutions:CreateBatchedInstitutionsDto[]){
 
-  }
   
   async updateInstitutionType (institutionId: string, institutionType: string){
     await adminDb.collection(INSTITUTIONS).doc(institutionId).set({

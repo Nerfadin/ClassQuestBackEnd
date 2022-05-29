@@ -17,9 +17,6 @@ export interface InstitutionHasTeacherDto{
     questsInGroup: number,
     joinedAt: Timestamp,
     groups: number
-} 
-export interface CreateBatchedInstitutionsDto{
-
 }
 export enum InstitutionRoles {
     Coordenator,

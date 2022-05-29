@@ -8,6 +8,7 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const express_helpers_1 = require("./express-helpers");
+const TeacherCreation_1 = require("..//migration/createAccountsGoiana/TeacherCreation");
 const tsyringe_1 = require("../utils/tsyringe");
 const InstitutionFacade_1 = require("../modules/institutions/InstitutionFacade");
 const ShopService_1 = require("../modules/shop/ShopService");
@@ -41,12 +42,18 @@ exports.app.use((0, cors_1.default)({ origin: '*' }));
 exports.app.use(body_parser_1.default.json());
 exports.app.use(body_parser_1.default.urlencoded({ extended: false }));
 /*----------------- OWNER ----------------- */
-exports.app.post('/auth/teacher/create', (0, express_helpers_1.returnFailureOrSuccessExpress)((req => {
+exports.app.post('/school/create', (0, express_helpers_1.returnFailureOrSuccessExpress)((req) => {
+    const ownerService = (0, tsyringe_1.build)(ownerFirebaseAdapter_1.OwnerFirebaseAdapter);
+    return ownerService.CreateSchool(req.body);
+}));
+exports.app.post('/auth/teacher/register', (0, express_helpers_1.returnFailureOrSuccessExpress)((req => {
     const registerTeacherDto = req.body;
     const authService = (0, tsyringe_1.build)(AuthenticationService_1.AuthenticationService);
-    return authService.RegisterTeacher(registerTeacherDto);
-    // return createAccountService.registerTeacher(registerTeacherDto);
-    return registerTeacherDto;
+    return authService.RegisterTeacher(registerTeacherDto.email, registerTeacherDto.password);
+})));
+exports.app.post('/admin/import/teachers', (0, express_helpers_1.returnFailureOrSuccessExpress)((req => {
+    const teacherCreationService = (0, tsyringe_1.build)(TeacherCreation_1.TeacherCreationService);
+    return teacherCreationService.createTeacher(req.body);
 })));
 /* ----------------- SUBJECTS ----------------- */
 exports.app.post('/subjects/create', (0, express_helpers_1.returnFailureOrSuccessExpress)((req => {

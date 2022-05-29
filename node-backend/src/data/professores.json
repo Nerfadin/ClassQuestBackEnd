@@ -1,8 +1,5 @@
 [
-    {
-        "name":"primeiro professor"
-    },
-    {
+  {
       "name": "Abigail Rodrigues Cordeiro Gomes",
       "email": "abigail.gomes@prof.goiana.pe.gov.br",
       "password": "Professor@2022",
@@ -1436,12 +1433,14 @@
       "password": "Professor@2022",
       "schoolIdentifier": "Esc. Mun. Heroinas de Tejucupapo"
     },
+
     {
       "name": "Leonardo Ribeiro Da Silva",
       "email": "leonardo.silva@prof.goiana.pe.gov.br",
       "password": "Professor@2022",
       "schoolIdentifier": "Esc. Mun. Edith Gadelha"
     },
+
     {
       "name": "Leonice Bezerra Lemos Barros",
       "email": "leonice.barros@prof.goiana.pe.gov.br",
@@ -1454,6 +1453,7 @@
       "password": "Professor@2022",
       "schoolIdentifier": "Esc. Mun. Irma Marie Armelle Falguieres"
     },
+
     {
       "name": "Leticia Maria Santos",
       "email": "leticia.santos@prof.goiana.pe.gov.br",
@@ -1478,6 +1478,7 @@
       "password": "Professor@2022",
       "schoolIdentifier": "Esc. Mun. Iracema Nogueira Rabelo"
     },
+
     {
       "name": "Lilian Gabriela Dos Santos Araujo",
       "email": "lilian.araujo@prof.goiana.pe.gov.br",
@@ -1496,6 +1497,7 @@
       "password": "Professor@2022",
       "schoolIdentifier": "Creche Mun. Profa Etenile Urbano Pessoa"
     },
+
     {
       "name": "Livania Regia Da Silva Martins",
       "email": "livania.martins@prof.goiana.pe.gov.br",
@@ -1610,6 +1612,7 @@
       "password": "Professor@2022",
       "schoolIdentifier": "Esc. Mun. Profa. Belisana Pinto Abreu de Araujo"
     },
+
     {
       "name": "Maria Ancerluce De Sousa Lopes",
       "email": "maria.lopes@prof.goiana.pe.gov.br",
@@ -3349,7 +3352,7 @@
       "email": "wilma.albuquerque@prof.goiana.pe.gov.br",
       "password": "Professor@2022",
       "schoolIdentifier": "Esc. Mun. Adelia Carneiro Pedrosa"
-    },
+    },    
     {
       "name": "Zeneide Maria De Oliveira Souza",
       "email": "zeneide.souza@prof.goiana.pe.gov.br",
