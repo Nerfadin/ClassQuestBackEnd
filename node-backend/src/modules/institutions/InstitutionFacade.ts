@@ -4,7 +4,7 @@ import { Singleton, Inject } from "../../utils/tsyringe";
 import { TeacherService } from '../teachers/teacherService';
 import { UserFirestoreAdaptor } from "../users/UserFirestoreAdaptor";
 import { firestore } from "firebase-admin";
-import { institutionHasTeacherDto } from "./CreateInstitutionDto";
+import { InstitutionHasTeacherDto } from "./CreateInstitutionDto";
 //import { Group } from "@interfaces/groups";
 
 //Convidar professor para instituição: Done
@@ -45,7 +45,7 @@ export class InstitutionFacade {
   */
  
  }
-  async AcceptTeacherInInstitution(body: institutionHasTeacherDto){
+  async AcceptTeacherInInstitution(body: InstitutionHasTeacherDto){
     await this.teacherService.acceptInstitutionInvite(body.teacherId,body.institutionId); //muda o status do convite pra acepted
     await this.institutionService.acceptTeacherIntoInstitution(body);
     await this.userDao.updateTeacher(body.teacherId, {

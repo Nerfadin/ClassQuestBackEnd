@@ -10,7 +10,7 @@ const firebase_admin_1 = require("firebase-admin");
 exports.TEACHERS = "teachers";
 class TeacherFirebaseAdaptor {
     async findTeacherByEmail(email) {
-        const teacherQuerry = await app_1.adminDb
+        const teacherQuerry = app_1.adminDb
             .collection(exports.TEACHERS)
             .where("email", "==", email);
         const teacher = await (0, firestoreUtils_1.manyDocumentsOrErrorP)(teacherQuerry.get());
@@ -23,6 +23,8 @@ class TeacherFirebaseAdaptor {
             institutionId: firebase_admin_1.firestore.FieldValue.arrayUnion(institutionId)
         }, { merge: true });
         return teacher;
+    }
+    async createTeacherDoc(RegisterTeacherDto) {
     }
     async getTeacherStatistics(teacherId) {
         //pegar quantidade de alunos que interagiram com esse professor.

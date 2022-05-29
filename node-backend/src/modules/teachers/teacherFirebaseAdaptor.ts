@@ -11,9 +11,10 @@ import { INSTITUTIONINVITATIONS } from "../institutions/InstitutionFirestoreAdap
 import { arrayContains } from "class-validator";
 import { firestore } from "firebase-admin";
 export const TEACHERS = "teachers";
+import {RegisterTeacherDto} from '@interfaces/teacher';
 export class TeacherFirebaseAdaptor {
   async findTeacherByEmail(email: string) {
-    const teacherQuerry = await adminDb
+    const teacherQuerry = adminDb
       .collection(TEACHERS)
       .where("email", "==", email);
     const teacher = await  manyDocumentsOrErrorP<Teacher>(teacherQuerry.get());
@@ -26,6 +27,8 @@ export class TeacherFirebaseAdaptor {
       institutionId: firestore.FieldValue.arrayUnion(institutionId)
     }, {merge: true})
     return teacher;
+  }
+  async createTeacherDoc(RegisterTeacherDto: RegisterTeacherDto){
 
   }
   async getTeacherStatistics(teacherId: string) {

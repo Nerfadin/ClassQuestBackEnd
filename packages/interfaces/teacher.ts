@@ -12,6 +12,13 @@ export type Teacher = {
   publishedActivitiesCount?: number;
   studentsCompletedActivityCount?: number;
 };
+export type RegisterTeacherDto = Omit<Teacher, "id" | "institutionIds"> & {
+  email: string;
+  password: string;
+  passwordConfirm: string;
+  instituicao: string;
+  institutionId?: string;
+};
 export type TeacherInstitutionStatistics = {
   id: string,
   groupsCount: number,

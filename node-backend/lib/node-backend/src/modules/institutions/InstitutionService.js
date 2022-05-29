@@ -24,39 +24,45 @@ exports.InstitutionService = void 0;
 */
 //import { UserService } from "../users/UserService";
 const InstitutionFirestoreAdaptor_1 = require("./InstitutionFirestoreAdaptor");
+const institutionManagerAdapter_1 = require("./institutionManagerAdapter");
 const dayjs_1 = __importDefault(require("dayjs"));
 const firebase_admin_1 = require("firebase-admin");
 const TaskService_1 = require("../tasks/TaskService");
 const tsyringe_1 = require("../../utils/tsyringe");
-const CreateInstitutionDto_1 = require("./CreateInstitutionDto");
 //Convidar professor para instituição: Done
 //Aceitar e adicionar o professor na instituição: Done
 //Buscar professores na instituição: Done
 //buscar grupos na instituição: Done
 //Buscar convites pendentes na instituição: Done
+//Atualizar tipo da instituição.
 let InstitutionService = class InstitutionService {
-    constructor(institutionDao, 
+    constructor(institutionDao, institutionManagerDao, 
     //@Inject(() => UserService) private userDao: UserService,
     //  @Inject(() => EmailService) private emailService: EmailService,
     taskService) {
         this.institutionDao = institutionDao;
+        this.institutionManagerDao = institutionManagerDao;
         this.taskService = taskService;
     }
-    async createInstitution(createDto, teacherId, institutionId) {
-        // TODO: CreateInstitutionDto
-        const institution = await this.institutionDao.createInstitution(createDto, teacherId);
+    async updateInstitutionType(institutionId, institutionType) {
+        return this.institutionManagerDao.updateInstitutionType(institutionId, institutionType);
+    }
+    async createInstitution(createDto) {
+        const institution = await this.institutionManagerDao.createInstitution(createDto);
         const now = (0, dayjs_1.default)();
         const inOneMonth = now.add(1, "month");
         const security = {
             //TODO: InstitutionSecurity
-            id: institution.id,
             plan: "paid",
             freeTrialStart: firebase_admin_1.firestore.Timestamp.fromDate(now.toDate()),
             freeTrialEnd: firebase_admin_1.firestore.Timestamp.fromDate(inOneMonth.toDate()),
         };
-        await this.institutionDao.setInstitutionSecurity(institution.id, security);
+        //    await this.institutionDao.setInstitutionSecurity(institutionId, security);
         await this.taskService.scheduleInstitutionFreeTrialRemovalTask(security);
-        await this.institutionDao.addTeacherToInstitution(teacherId, institutionId, CreateInstitutionDto_1.InstitutionRoles.Teacher);
+        return institution;
+    }
+    getInstitution(institutionId) {
+        return this.institutionDao.getInstitutionById(institutionId);
     }
     async InviteTeacherToInstitution(invitationDto) {
         const errorPending = {
@@ -101,12 +107,16 @@ let InstitutionService = class InstitutionService {
         console.log("INSIDE INSTITUTIONsERVICE");
         return teachers;
     }
+    async getInstitutionById(institutionId) {
+        return await this.institutionDao.getInstitutionById(institutionId);
+    }
 };
 InstitutionService = __decorate([
     (0, tsyringe_1.Singleton)(),
     __param(0, (0, tsyringe_1.Inject)(() => InstitutionFirestoreAdaptor_1.InstitutionFirestoreAdaptor)),
-    __param(1, (0, tsyringe_1.Inject)(() => TaskService_1.TaskService)),
+    __param(2, (0, tsyringe_1.Inject)(() => TaskService_1.TaskService)),
     __metadata("design:paramtypes", [InstitutionFirestoreAdaptor_1.InstitutionFirestoreAdaptor,
+        institutionManagerAdapter_1.InstitutionManagerAdapter,
         TaskService_1.TaskService])
 ], InstitutionService);
 exports.InstitutionService = InstitutionService;

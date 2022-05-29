@@ -35,6 +35,7 @@ import { PlayerInventoryService } from "../modules/playerInventory/PlayerInvento
 import { QuestMigrator } from '../migration/questMigration/questMigrationAdapter';
 import { SubjectService } from '../modules/subjectsSystem/subjectService';
 import { OwnerFirebaseAdapter } from '../modules/institutions/owner/ownerFirebaseAdapter';
+
 export const app = express();
 app.use(cors({ origin: '*' }));
 
@@ -43,6 +44,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 /*----------------- OWNER ----------------- */
 
+
+app.post('/auth/teacher/create', returnFailureOrSuccessExpress((req => {
+  const registerTeacherDto = req.body;
+  const authService = build(AuthenticationService);
+  return authService.RegisterTeacher(registerTeacherDto);
+ // return createAccountService.registerTeacher(registerTeacherDto);
+  return registerTeacherDto;
+})))
 /* ----------------- SUBJECTS ----------------- */
 
 app.post('/subjects/create', returnFailureOrSuccessExpress((req => {
@@ -192,9 +201,8 @@ app.post('/migration/quests/institution', returnFailureOrSuccessExpress((req) =>
 }))
 /*----------------- INSTITUTION ----------------- */
 
-/* Brute force add teacher*/
-app.post(
-  "/teacher/:teacherId/institution/:institutionId",
+/* add teacher*/
+app.post("/teacher/:teacherId/institution/:institutionId",
   returnFailureOrSuccessExpress((req) => {
     const tyeacherService = build(TeacherService);
     return tyeacherService.addTeacherToInstitution(
@@ -203,23 +211,7 @@ app.post(
     );
   })
 );
-//Convidar professor para instituição: OK - TESTED
-app.post(
-  "/institution/invite",
 
-  returnFailureOrSuccessExpress((req) => {
-    const institutionService = build(InstitutionService);
-    return institutionService.InviteTeacherToInstitution(req.body);
-  })
-);
-//Aceitar e adicionar o professor na instituição: OK - TESTED
-app.post(
-  "/institution/accept/teacher",
-  returnFailureOrSuccessExpress((req) => {
-    const institutionFacade = build(InstitutionFacade);
-    return institutionFacade.AcceptTeacherInInstitution(req.body);
-  }, false)
-);
 
 //Buscar professores na instituição: OK - TESTED
 app.get(
@@ -233,7 +225,6 @@ app.get(
 );
 
 //buscar grupos na instituição: OK - TESTED
-
 app.get(
   "/institution/:institutionId/groups",
   verifyAuthenticated(),
@@ -270,6 +261,20 @@ app.put(
   })
 );
 
+app.post('/institution/create',
+verifyAuthenticated(), returnFailureOrSuccessExpress((req) => {
+  const institutionService = build(InstitutionService);
+  return institutionService.createInstitution(req.body);
+  return req.body;
+}));
+app.get('/institution/:institutionId', returnFailureOrSuccessExpress((req)=>{
+  const institutionService = build(InstitutionService);
+  return institutionService.getInstitution(req.params.institutionId);
+}));
+app.post('/institution/update/type', returnFailureOrSuccessExpress((req)=>{
+  const institutionService = build(InstitutionService);
+  return institutionService.updateInstitutionType(req.body.institutionId, req.body.institutionType);
+}))
 app.get(
   "/teacher/institution",
   verifyAuthenticated(),
@@ -278,7 +283,6 @@ app.get(
     return institutionService.getTeacherInstitutionsInfo(req.user.uid);
   })
 );
-
 /*----------------- MESSAGES ----------------- */
 app.post(
   "/message/:groupId/send",

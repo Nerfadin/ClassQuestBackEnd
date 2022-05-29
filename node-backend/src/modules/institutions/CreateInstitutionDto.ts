@@ -2,11 +2,13 @@ import { Timestamp } from "@interfaces/quest";
 import { Teacher } from "@interfaces/teacher";
 
 export interface CreateInstitutionDto {
-    id: string,
+    id?: string,
     name: string,    
-    institutionType: string
+    institutionType: string,
+    owned?: boolean,
+    ownedBy: string,
 }
-export interface institutionHasTeacherDto{
+export interface InstitutionHasTeacherDto{
     teacherId: string,
     teacher: Teacher
     institutionId: string,    
@@ -15,8 +17,10 @@ export interface institutionHasTeacherDto{
     questsInGroup: number,
     joinedAt: Timestamp,
     groups: number
-
 } 
+export interface CreateBatchedInstitutionsDto{
+
+}
 export enum InstitutionRoles {
     Coordenator,
     Director,

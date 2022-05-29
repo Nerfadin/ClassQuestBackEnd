@@ -1,6 +1,7 @@
 import { LoginDto } from "./models/LoginDto";
 import { AuthenticationHttpAdaptor } from "./AuthenticationHttpAdaptor";
-import { RegisterDtoStepTwo, RegisterDtoStepOne } from "./models/RegisterDto";
+import { RegisterDtoStepTwo, RegisterDtoStepOne} from "./models/RegisterDto";
+import { RegisterTeacherDto } from "@interfaces/teacher";
 import { Singleton, Inject } from "../../utils/tsyringe";
 import { UserService } from "../users/UserService";
 import { Player } from "../../../../packages/interfaces/player";
@@ -70,8 +71,10 @@ export class AuthenticationService {
   async updateCustomClaims(){
     
   }
-  async RegisterTeacher(){
-    
+  async RegisterTeacher(registerTeacherDto: RegisterTeacherDto){
+    await this.authenticationDao.registerTeacher(registerTeacherDto).then(() => {
+      
+    });
   }
   async registerPlayerWithInstitution(registerDto: RegisterDtoStepOne, institutionID: string) {
     const register = await this.authenticationDao.register(registerDto);

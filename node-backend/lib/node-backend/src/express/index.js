@@ -41,6 +41,13 @@ exports.app.use((0, cors_1.default)({ origin: '*' }));
 exports.app.use(body_parser_1.default.json());
 exports.app.use(body_parser_1.default.urlencoded({ extended: false }));
 /*----------------- OWNER ----------------- */
+exports.app.post('/auth/teacher/create', (0, express_helpers_1.returnFailureOrSuccessExpress)((req => {
+    const registerTeacherDto = req.body;
+    const authService = (0, tsyringe_1.build)(AuthenticationService_1.AuthenticationService);
+    return authService.RegisterTeacher(registerTeacherDto);
+    // return createAccountService.registerTeacher(registerTeacherDto);
+    return registerTeacherDto;
+})));
 /* ----------------- SUBJECTS ----------------- */
 exports.app.post('/subjects/create', (0, express_helpers_1.returnFailureOrSuccessExpress)((req => {
     const subjectDto = req.body;
@@ -133,21 +140,11 @@ exports.app.post('/migration/quests/institution', (0, express_helpers_1.returnFa
     return questMigrator.createQuestRelationshipWithInstitution();
 }));
 /*----------------- INSTITUTION ----------------- */
-/* Brute force add teacher*/
+/* add teacher*/
 exports.app.post("/teacher/:teacherId/institution/:institutionId", (0, express_helpers_1.returnFailureOrSuccessExpress)((req) => {
     const tyeacherService = (0, tsyringe_1.build)(teacherService_1.TeacherService);
     return tyeacherService.addTeacherToInstitution(req.params.teacherId, req.params.institutionId);
 }));
-//Convidar professor para instituição: OK - TESTED
-exports.app.post("/institution/invite", (0, express_helpers_1.returnFailureOrSuccessExpress)((req) => {
-    const institutionService = (0, tsyringe_1.build)(InstitutionService_1.InstitutionService);
-    return institutionService.InviteTeacherToInstitution(req.body);
-}));
-//Aceitar e adicionar o professor na instituição: OK - TESTED
-exports.app.post("/institution/accept/teacher", (0, express_helpers_1.returnFailureOrSuccessExpress)((req) => {
-    const institutionFacade = (0, tsyringe_1.build)(InstitutionFacade_1.InstitutionFacade);
-    return institutionFacade.AcceptTeacherInInstitution(req.body);
-}, false));
 //Buscar professores na instituição: OK - TESTED
 exports.app.get("/institution/:institutionId/teachers/", (0, express_helpers_1.returnFailureOrSuccessExpress)((req) => {
     const institutionService = (0, tsyringe_1.build)(InstitutionService_1.InstitutionService);
@@ -169,6 +166,19 @@ exports.app.get("/institution/:institutionId/invites", (0, express_helpers_1.ret
 exports.app.put("/institution/update", (0, express_helpers_1.verifyAuthenticated)(), (0, express_helpers_1.returnFailureOrSuccessExpress)((req) => {
     const institutionService = (0, tsyringe_1.build)(InstitutionService_1.InstitutionService);
     return institutionService.updateInstitutionInfo(req.body);
+}));
+exports.app.post('/institution/create', (0, express_helpers_1.verifyAuthenticated)(), (0, express_helpers_1.returnFailureOrSuccessExpress)((req) => {
+    const institutionService = (0, tsyringe_1.build)(InstitutionService_1.InstitutionService);
+    return institutionService.createInstitution(req.body);
+    return req.body;
+}));
+exports.app.get('/institution/:institutionId', (0, express_helpers_1.returnFailureOrSuccessExpress)((req) => {
+    const institutionService = (0, tsyringe_1.build)(InstitutionService_1.InstitutionService);
+    return institutionService.getInstitution(req.params.institutionId);
+}));
+exports.app.post('/institution/update/type', (0, express_helpers_1.returnFailureOrSuccessExpress)((req) => {
+    const institutionService = (0, tsyringe_1.build)(InstitutionService_1.InstitutionService);
+    return institutionService.updateInstitutionType(req.body.institutionId, req.body.institutionType);
 }));
 exports.app.get("/teacher/institution", (0, express_helpers_1.verifyAuthenticated)(), (0, express_helpers_1.returnFailureOrSuccessExpress)((req) => {
     const institutionService = (0, tsyringe_1.build)(InstitutionService_1.InstitutionService);

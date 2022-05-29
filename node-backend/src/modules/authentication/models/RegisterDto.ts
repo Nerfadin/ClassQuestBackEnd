@@ -1,4 +1,3 @@
-import { Teacher } from "@interfaces/teacher";
 
 export type RegisterDtoStepOne = {
   email: string;
@@ -10,12 +9,7 @@ export type RegisterDtoStepTwo = {
   gender: string;
   playerName: string;
 };
-export type RegisterTeacherDto = Omit<Teacher, "id" | "institutionIds"> & {
-  email: string;
-  password: string;
-  passwordConfirm: string;
-  instituicao: string;
-};
+
 
 export type RegisterPayload = {
   localId: string;

@@ -35,26 +35,21 @@ let InstitutionFirestoreAdaptor = class InstitutionFirestoreAdaptor {
             .get());
     }
     async getTeacherInstitutionsInfo(teacherId) {
-        console.log("teacher Id: " + teacherId);
         const teacher = await (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb.collection(GroupFirebaseAdaptor_1.TEACHERS).doc(teacherId).get());
         const teacherInstitutionIds = teacher.institutionIds;
-        console.log("teacherInstitutionsIds " + teacherInstitutionIds);
         const institutionsPromisse = teacherInstitutionIds.map(async (id) => {
-            console.log("institutionId: " + id);
             return await this.getInstitutionInfo(id);
         });
         const institutions = Promise.all(institutionsPromisse);
-        console.log("institutions beign logged");
-        console.log(institutions);
         return institutions;
-    }
-    async createInstitution(createDto, teacherId) {
-        return await app_1.adminDb.collection(exports.INSTITUTIONS).add(createDto);
     }
     async getInstitutionInfo(institutionId) {
         const institution = await (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb.collection(exports.INSTITUTIONS).doc(institutionId).get());
         console.log(institution);
         return institution;
+    }
+    async getInstitutionById(institutionId) {
+        return await (0, firestoreUtils_1.oneDocumentP)(app_1.adminDb.collection(exports.INSTITUTIONS).doc(institutionId).get());
     }
     async updateInstitution(updateInstitutionDto) {
         return await app_1.adminDb
@@ -88,23 +83,6 @@ let InstitutionFirestoreAdaptor = class InstitutionFirestoreAdaptor {
             .collection(GroupFirebaseAdaptor_1.TEACHERS)
             .where("institutionId", "array-contains", institutionId);
         return (0, firestoreUtils_1.manyDocumentsOrErrorP)(teachers.get());
-        /*const institutionRef = await adminDb.collection(INSTITUTIONS).doc(institutionId);
-        console.log("insitutionRef: " + institutionRef)
-        const institutionHsTeacherDocs = await manyDocumentsOrErrorP<institutionHasTeacherDto>(adminDb
-          .collection(INSTITUTIONS_HAS_TEACHERS)
-          .where("institution", "==", institutionRef)
-          .get());
-        console.log("institutionHsTeacherDocs " + institutionHsTeacherDocs.length);
-    
-        const teachersIds = institutionHsTeacherDocs.map((doc) => {
-          console.log("doc inside map")
-          console.log(doc.teacherId + " ")
-          return doc.teacher.id;
-        })
-        console.log("teacherIds: " + teachersIds)
-        return teachersIds */
-    }
-    async addRoleToInstitution(userId, institutionId) {
     }
     async getAlTeacherInstitutionIds(institutionId) {
         const institutionTeachersSnapShot = await app_1.adminDb
@@ -114,6 +92,12 @@ let InstitutionFirestoreAdaptor = class InstitutionFirestoreAdaptor {
         return teachers.map((teacher) => {
             return teacher.id;
         });
+    }
+    async findInstitutionByName(name) {
+        const institutionSnapshot = app_1.adminDb
+            .collection(exports.INSTITUTIONS)
+            .where("name", "==", name);
+        return await (0, firestoreUtils_1.manyDocumentsOrErrorP)(institutionSnapshot.get());
     }
     async addTeacherToInstitution(teacherId, institutionId, role = CreateInstitutionDto_1.InstitutionRoles.Teacher) {
         const plan = {
