@@ -5,7 +5,7 @@ export interface CreateOwnerDto {
     ownerPlan: string;
     ownerBillingDate: Timestamp;
     CreatedAt: Timestamp;
-    Adress: { 
+    Adress: {
         street: string;
         number: number;
         city: string;
@@ -15,5 +15,13 @@ export interface CreateOwnerDto {
 export interface updateOwnedStatistics {
     questCountAdd: number;
     teacherCountAdd: number;
-    playerCountAdd: number;    
+    playerCountAdd: number;
+}
+
+export interface School {
+    name: string;
+    state: string;
+    city: string;
+    ownerId: string;
+    identifier: string;
 }

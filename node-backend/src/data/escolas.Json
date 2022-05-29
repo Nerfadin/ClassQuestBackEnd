@@ -1,0 +1,249 @@
+[
+
+    {
+      "id": 26089467,
+      "name": "Esc. Mun. Adelia Carneiro Pedrosa",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26180090,
+      "name": "Esc. Mun. Arcendrino Cesar de Albuquerque",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26089122,
+      "name": "Esc. Mun. Capela de Sao Sebastiao",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26133156,
+      "name": "Centro de Atendimento de Educacao Especial",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26089300,
+      "name": "Esc. Mun. Conego Fernando Passos",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26208202,
+      "name": "Creche Mun. Associacao das Mulheres Construtoras",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26133130,
+      "name": "Creche Mun. Profa Etenile Urbano Pessoa",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26207206,
+      "name": "Creche Mun. Projeto Crianca Feliz",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26208008,
+      "name": "Creche Mun. Nossa Senhora da Misericordia",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26089327,
+      "name": "Esc. Mun. Diogo Dias",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26089319,
+      "name": "Esc. Mun. Dr. Araujo Filho",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26089211,
+      "name": "Esc. Mun. Dr. Benigno Araujo",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26088983,
+      "name": "Esc. Mun. Dr. Clovis Fontenelle Guimaraes",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26089254,
+      "name": "Esc. Mun. Dr. Ludovico Correia",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26088940,
+      "name": "Esc. Mun. Dr. Manoel Borba",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26089408,
+      "name": "Esc. Mun. Edith Gadelha",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26089335,
+      "name": "Esc. Mun. Eufrasio Vilarim",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26089262,
+      "name": "Esc. Mun. Francisco Nicolau da Silva",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26089491,
+      "name": "Esc. Mun. Heroinas de Tejucupapo",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26154390,
+      "name": "Esc. Mun. Iracema Nogueira Rabelo",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26088959,
+      "name": "Esc. Mun. Irma Marie Armelle Falguieres",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26088967,
+      "name": "Esc. Mun. IV Centenario",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26089270,
+      "name": "Esc. Mun. Joao Carneiro de Melo",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26089459,
+      "name": "Esc. Mun. Joao Goncalves de Azevedo",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26089475,
+      "name": "Esc. Mun. Jose Maciel da Silva",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26089416,
+      "name": "Esc. Mun. Lourenco de Albuquerque Gadelha (DISTRITO)",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26089220,
+      "name": "Esc. Mun. Lourenco de Albuquerque Gadelha (SEDE)",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26089289,
+      "name": "Esc. Mun. Major Manoel Gadelha",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26089394,
+      "name": "Esc. Mun. Manuel Cesar de Albuquerque",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26089351,
+      "name": "Esc. Mun. Nossa Senhora das Maravilhas",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26089440,
+      "name": "Esc. Mun. Prefeito Angelo Jordao",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26088878,
+      "name": "Esc. Mun. Presidente Costa e Silva",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26230640,
+      "name": "Esc. Mun. Profa. Belisana Pinto Abreu de Araujo",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26229641,
+      "name": "Esc. Mun. Profa. Cynira Florianna dos Prazeres",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26089297,
+      "name": "Esc. Mun. Profa. Lizete Maria de Souza Rodrigues",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26154382,
+      "name": "Esc. Mun. Profa. Maria Emilia Valenca da Silveira",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26088991,
+      "name": "Esc. Mun. Profa. Tarcila Coutinho Amaral",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26089165,
+      "name": "Esc. Mun. Profa. Zilma Gemir  Baracho",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26089483,
+      "name": "Esc. Mun. Santa Maria",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26089432,
+      "name": "Esc. Mun. Santo Antonio de Padua",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    },
+    {
+      "id": 26143593,
+      "name": "Esc. Mun. Sao Thomaz de Aquino",
+      "state": "Pernambuco",
+      "city": "Goiana"
+    }
+  ]

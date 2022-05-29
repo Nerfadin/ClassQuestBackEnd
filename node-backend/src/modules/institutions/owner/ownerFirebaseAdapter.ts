@@ -1,18 +1,18 @@
 import { adminDb } from '../../../app';
 import { Singleton } from '../../../utils/tsyringe';
-import { CreateOwnerDto, updateOwnedStatistics } from './ownerDto';
+import { CreateOwnerDto, School, updateOwnedStatistics } from './ownerDto';
 import { firestore } from 'firebase-admin';
+import { manyDocumentsOrErrorP, oneDocumentP } from '../../../utils/firestoreUtils';
+import { InstitutionInfo } from '../CreateInstitutionDto';
 export const OWNER = "owner";
 export const OWNEDINSTITUTIONS = "ownedInstitution";
-
+import {SCHOOLS} from   '../InstitutionManagerAdapter'
 @Singleton()
 export class OwnerFirebaseAdapter {
 
     async getOwnerInstitutions(ownerId: string) {
-        const ownedInstitutions = await adminDb.collection(OWNER).doc(ownerId).collection(OWNEDINSTITUTIONS).get();
-        return ownedInstitutions.docs.map((i) => {
-            return i.data
-        })
+        const ownedInstitutions = await adminDb.collection(OWNER).doc(ownerId).collection(OWNEDINSTITUTIONS);
+        return manyDocumentsOrErrorP<InstitutionInfo> (ownedInstitutions.get());
     }
     async CreateOwner(owner: CreateOwnerDto) {
         const ownerId = await adminDb.collection(OWNER).add(
@@ -39,6 +39,28 @@ export class OwnerFirebaseAdapter {
         await adminDb.collection(OWNER).doc(ownerId).collection(OWNEDINSTITUTIONS).doc(institutionId).set({
             institutionId: institutionId,
             ownerId: ownerId,
-        });
+        });        
     }
+    async CreateSchool (schools: School[]){
+       const ownerId = 'QHISBM5KryaXQHmPNc2I'
+       let createdSchools: School[] = [];
+       schools['data'].map(async(schoolDto) => {
+        const school = await adminDb.collection(SCHOOLS).add({
+            "institutionType": "school",
+            "institutionName": schoolDto.name,
+            "institutionOwnerId": ownerId,
+            "institutionCity": schoolDto.city,
+            'ownerId': ownerId
+
+        });
+        await adminDb.collection(SCHOOLS).doc(school.id).set({
+            "id":school.id 
+        }, {merge: true});
+        const schoolCreated = await oneDocumentP<School>(adminDb.collection(SCHOOLS).doc(school.id).get());
+        createdSchools.push(schoolCreated);
+       })
+       console.log(createdSchools.length);
+        return createdSchools;       
+      }
+      
 }

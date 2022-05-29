@@ -1,16 +1,10 @@
-/*import {
-    CreateInstitutionDto,
-    institutionHasTeacherDto,
-    InstitutionRoles,
-    UpdateInstitutionDto,
-} from "./CreateInstitutionDto"; */
-
 import { Singleton } from "../../utils/tsyringe";
 //import { BadRequestError } from "../../utils/errorUtils";
 import {adminDb} from '../../app';
 import {INSTITUTIONS} from './InstitutionFirestoreAdaptor';
 import { oneDocumentP } from "../../utils/firestoreUtils";
 import { CreateBatchedInstitutionsDto, CreateInstitutionDto, InstitutionInfo } from "./CreateInstitutionDto";
+export const SCHOOLS = 'schools';
 @Singleton()
 export class InstitutionManagerAdapter {
   constructor() {}
@@ -22,11 +16,12 @@ export class InstitutionManagerAdapter {
   async createBatchedInstitutions(institutions:CreateBatchedInstitutionsDto[]){
 
   }
+  
   async updateInstitutionType (institutionId: string, institutionType: string){
     await adminDb.collection(INSTITUTIONS).doc(institutionId).set({
         "institutionType": institutionType
     },
-    {merge: true});
+    {merge: true});   
     return await oneDocumentP<any> (adminDb.collection(INSTITUTIONS).doc(institutionId).get());
-}
+    }
 }

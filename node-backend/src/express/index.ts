@@ -44,11 +44,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 /*----------------- OWNER ----------------- */
 
-
-app.post('/auth/teacher/create', returnFailureOrSuccessExpress((req => {
+app.post ('/school/create', returnFailureOrSuccessExpress((req) => {
+const ownerService = build(OwnerFirebaseAdapter);
+return ownerService.CreateSchool(req.body);
+}));
+app.post('/auth/teacher/register', returnFailureOrSuccessExpress((req => {
   const registerTeacherDto = req.body;
   const authService = build(AuthenticationService);
   return authService.RegisterTeacher(registerTeacherDto);
+  
  // return createAccountService.registerTeacher(registerTeacherDto);
   return registerTeacherDto;
 })))
